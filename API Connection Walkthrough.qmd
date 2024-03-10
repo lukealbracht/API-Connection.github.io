@@ -296,7 +296,7 @@ To do this in httr2 I took the "req" object created above and piped it through t
 
 To re-cap at this point I now have the follow data objects in my environment window:
 
-```{r}
+```{r, eval=FALSE}
 #This function was built to return the Name and Type of object in the enviroment window - I wanted a filtered list of the objects that matter and did not want to include the values/secrets:
 env_obj_classes <- function() {
   # List the objects in your R environment
@@ -402,3 +402,5 @@ resps <- req_perform_iterative(
 #Displaying the outcome:
 resps
 ```
+
+![](images/Iterated Responses.png)
