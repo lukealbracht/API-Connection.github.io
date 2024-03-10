@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "API-Connection.github.io"
+  title: "Strava API Connnection Walkthrough"
   navbar:
     left:
       - href: index.qmd
