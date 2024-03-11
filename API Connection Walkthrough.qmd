@@ -16,12 +16,12 @@ editor_options:
 ## Libraries
 
 ```{r}
-
 # Install and load the required packages if not already installed:
-p_load(tidyverse,httr2,conflicted,jsonlite,DiagrammeR)
-
-#Github Actions:
-library(igraph)
+library(tidyverse)
+library(httr2)
+library(conflicted)
+library(jsonlite)
+library(DiagrammeR)
 
 #Conflicted package set to prefer dplyr over others:
 conflicts_prefer(dplyr::filter)
