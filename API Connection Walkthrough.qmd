@@ -18,13 +18,7 @@ editor_options:
 ```{r}
 
 # Install and load the required packages if not already installed:
-if (!require(pacman))
-  install.packages("pacman")
-p_load(tidyverse,
-       httr2,
-       conflicted,
-       jsonlite,
-       DiagrammeR)
+p_load(tidyverse,httr2,conflicted,jsonlite,DiagrammeR,igraph)
 
 #Conflicted package set to prefer dplyr over others:
 conflicts_prefer(dplyr::filter)
