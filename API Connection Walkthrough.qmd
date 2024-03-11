@@ -16,9 +16,21 @@ editor_options:
 ## Libraries
 
 ```{r}
-  # Install and load the required packages if not already installed:
-  if (!require(pacman)) install.packages("pacman")
-  p_load(tidyverse,DiagrammeR,networkD3,gt,httr2,jsonlite)
+
+# Install and load the required packages if not already installed:
+if (!require(pacman))
+  install.packages("pacman")
+p_load(tidyverse,
+       httr2,
+       conflicted,
+       jsonlite,
+       DiagrammeR,
+       networkD3,
+       igraph)
+
+#Conflicted package set to prefer dplyr over others:
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::data_frame)
 ```
 
 ## API Connection steps \| Overview
@@ -403,4 +415,4 @@ resps <- req_perform_iterative(
 resps
 ```
 
-![](images/Iterated Responses.png)
+![](images/Iterated%20Responses.png)
