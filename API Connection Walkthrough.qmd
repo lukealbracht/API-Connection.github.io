@@ -18,11 +18,15 @@ editor_options:
 ```{r}
 
 # Install and load the required packages if not already installed:
-p_load(tidyverse,httr2,conflicted,jsonlite,DiagrammeR,igraph)
+p_load(tidyverse,httr2,conflicted,jsonlite,DiagrammeR)
+
+#Github Actions:
+library(igraph)
 
 #Conflicted package set to prefer dplyr over others:
 conflicts_prefer(dplyr::filter)
 conflicts_prefer(dplyr::data_frame)
+
 ```
 
 ## API Connection steps \| Overview
