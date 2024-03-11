@@ -24,9 +24,7 @@ p_load(tidyverse,
        httr2,
        conflicted,
        jsonlite,
-       DiagrammeR,
-       networkD3,
-       igraph)
+       DiagrammeR)
 
 #Conflicted package set to prefer dplyr over others:
 conflicts_prefer(dplyr::filter)
