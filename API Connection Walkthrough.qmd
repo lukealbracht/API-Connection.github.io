@@ -204,7 +204,7 @@ This document serves as a walk through for connecting to API's through R using t
 
 In this step we are going to put everything together. Using what we know about HTTP requests, OAuth2.0, and the instructions presented in [Strava API V3 Documentation](https://developers.strava.com/docs/ "Strava API V3 Documentation"){.uri} we should have [registered our application](https://developers.strava.com/docs/getting-started/#account) and generated our tokens.
 
-![Example Strava Creditials](images/Screenshot%202024-02-22%20172443.png){fig-align="center" width="594"}
+![Example Strava Creditials](images/API Application Example.png){fig-align="center" width="594"}
 
 ### GET Request \| [httr2](https://httr2.r-lib.org/)
 
