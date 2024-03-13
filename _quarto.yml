@@ -2,17 +2,19 @@ project:
   type: website
 
 website:
-  title: "Strava API Connnection Walkthrough"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+  title: "R Data Project|Luke Albracht"
+  description: "This site contains the notes and steps used to connect to Strava's API."
+  search: true
+  back-to-top-navigation: true
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
       - API Connection Walkthrough.qmd
 
 format:
   html:
-    theme: darkly
+    theme: superhero
     css: styles.css
     toc: true
 
