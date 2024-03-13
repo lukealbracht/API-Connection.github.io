@@ -414,8 +414,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="fu">render_graph</span>(Diagram)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-0506dbf2d8b0c6a14015" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-0506dbf2d8b0c6a14015">{"x":{"diagram":"graph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Application\n(Client)\n(My Strava App)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#007AC1\", fontcolor = \"White\", height = \"5\", width = \"2\"] \n  \"2\" [label = \"User\n(My Strava\nProfile)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#FDBB30\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"3\" [label = \"Authorization\nServer\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#C71585\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"4\" [label = \"Resource\n Server\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"Orangered\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n\"1\"--\"2\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"1.)Authorization is requested from the\n app to the user/profile/data owner.\", dir = \"forward\", headport = \"n\", tailport = \"n\"] \n\"2\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"2.)User grants authorization to the app.\", dir = \"forward\", dir = \"forward\", dir = \"forward\"] \n\"1\"--\"3\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"3.)App sends the authorization grant\nto the authorization server\", dir = \"forward\", headport = \"n\", headport = \"n\"] \n\"3\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"4.)Access token is granted to the app.\", dir = \"forward\", dir = \"forward\", tailport = \"w\"] \n\"1\"--\"4\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"5.)Access token is sent from app\nvia HTTP|GET request.\", dir = \"forward\", headport = \"w\", headport = \"w\"] \n\"4\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"6.)Access to resource data\nis granted to the application.\", dir = \"forward\", headport = \"s\", tailport = \"s\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-36ac0bd8adf9f3237d82" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-36ac0bd8adf9f3237d82">{"x":{"diagram":"graph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Application\n(Client)\n(My Strava App)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#007AC1\", fontcolor = \"White\", height = \"5\", width = \"2\"] \n  \"2\" [label = \"User\n(My Strava\nProfile)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#FDBB30\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"3\" [label = \"Authorization\nServer\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#C71585\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"4\" [label = \"Resource\n Server\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"Orangered\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n\"1\"--\"2\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"1.)Authorization is requested from the\n app to the user/profile/data owner.\", dir = \"forward\", headport = \"n\", tailport = \"n\"] \n\"2\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"2.)User grants authorization to the app.\", dir = \"forward\", dir = \"forward\", dir = \"forward\"] \n\"1\"--\"3\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"3.)App sends the authorization grant\nto the authorization server\", dir = \"forward\", headport = \"n\", headport = \"n\"] \n\"3\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"4.)Access token is granted to the app.\", dir = \"forward\", dir = \"forward\", tailport = \"w\"] \n\"1\"--\"4\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"5.)Access token is sent from app\nvia HTTP|GET request.\", dir = \"forward\", headport = \"w\", headport = \"w\"] \n\"4\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"6.)Access to resource data\nis granted to the application.\", dir = \"forward\", headport = \"s\", tailport = \"s\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div></li>
 </ol>
@@ -435,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>HTTP Methods - There are a number of methods, for our purposes the “GET” method is the only one we will use. This method is a request to retrieve data from the server.</p></li>
 <li><p>URIs | URLs - Uniform resource identifier also known as uniform resource locator specifies the address of the resource.</p>
 <ul>
-<li>Base URL - This can be found in the API documentation:<img src="~/3_R/strava-data/Images/Strava Base URL.png" class="img-fluid" width="486" alt="Base URL"></li>
+<li>Base URL - This can be found in the API documentation: <img src="~/3_R/strava-data/Images/Strava Base URL.png" class="img-fluid" width="486" alt="Base URL"></li>
 </ul></li>
 <li><p>Data formats - The next consideration we have to make is the structure of the data that the API contains. There are two common formats; JSON (JavaScript Object Notation) and XML (extensible Markup Language). Strava’s structure is JSON so we are going to recruit the <a href="https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html" title="jsonlite vignettes">jsonlite</a> package to help parse and map the API’s data into R objects.</p></li>
 </ul>
@@ -556,7 +556,12 @@ Content-Length: 25
 client_id=&amp;client_secret=</code></pre>
 </div>
 </div>
-<p><img src="images/Authentication Steps API.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Authentication.png" class="img-fluid figure-img"></p>
+<figcaption>Authentication message</figcaption>
+</figure>
+</div>
 </section>
 <section id="request" class="level3">
 <h3 class="anchored" data-anchor-id="request">Request</h3>
@@ -1364,222 +1369,223 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb19-198"><a href="#cb19-198" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-199"><a href="#cb19-199" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>URIs \| URLs - Uniform resource identifier also known as uniform resource locator specifies the address of the resource.</span>
 <span id="cb19-200"><a href="#cb19-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-201"><a href="#cb19-201" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Base URL - This can be found in the API documentation:<span class="al">![Base URL](~/3_R/strava-data/Images/Strava%20Base%20URL.png)</span>{width="486"}</span>
-<span id="cb19-202"><a href="#cb19-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-203"><a href="#cb19-203" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Data formats - The next consideration we have to make is the structure of the data that the API contains. There are two common formats; JSON (JavaScript Object Notation) and XML (extensible Markup Language). Strava's structure is JSON so we are going to recruit the <span class="co">[</span><span class="ot">jsonlite</span><span class="co">](https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html "jsonlite vignettes")</span> package to help parse and map the API's data into R objects.</span>
-<span id="cb19-204"><a href="#cb19-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-205"><a href="#cb19-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### API Application</span></span>
-<span id="cb19-206"><a href="#cb19-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-207"><a href="#cb19-207" aria-hidden="true" tabindex="-1"></a>In this step we are going to put everything together. Using what we know about HTTP requests, OAuth2.0, and the instructions presented in <span class="co">[</span><span class="ot">Strava API V3 Documentation</span><span class="co">](https://developers.strava.com/docs/ "Strava API V3 Documentation")</span>{.uri} we should have <span class="co">[</span><span class="ot">registered our application</span><span class="co">](https://developers.strava.com/docs/getting-started/#account)</span> and generated our tokens.</span>
-<span id="cb19-208"><a href="#cb19-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-209"><a href="#cb19-209" aria-hidden="true" tabindex="-1"></a><span class="al">![Example Strava Creditials](images/API Application Example.png)</span>{fig-align="center" width="594"}</span>
-<span id="cb19-210"><a href="#cb19-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-211"><a href="#cb19-211" aria-hidden="true" tabindex="-1"></a><span class="fu">### GET Request \| [httr2](https://httr2.r-lib.org/)</span></span>
-<span id="cb19-212"><a href="#cb19-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-213"><a href="#cb19-213" aria-hidden="true" tabindex="-1"></a>Below I will be leaning on the <span class="co">[</span><span class="ot">httr2 OAuth vignette</span><span class="co">](https://httr2.r-lib.org/articles/oauth.html)</span> and taking notes/learning as I go. This vignette gives a much more in depth description of the OAuth framework and breaks down the httr2 connection process very succinctly.</span>
-<span id="cb19-214"><a href="#cb19-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-215"><a href="#cb19-215" aria-hidden="true" tabindex="-1"></a>For privacy I have added all keys to my .Renviron file. The keys are saved as environment variables to avoid including the creditials inside my code below I am assigning them so that I can use them in the GET request:</span>
-<span id="cb19-216"><a href="#cb19-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-219"><a href="#cb19-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb19-220"><a href="#cb19-220" aria-hidden="true" tabindex="-1"></a>app_name <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_name"</span>) <span class="co"># Chosen by user</span></span>
-<span id="cb19-221"><a href="#cb19-221" aria-hidden="true" tabindex="-1"></a>app_client_id <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_client_id"</span>) <span class="co"># this is assigned by Strava above listed as "Client ID" in the image</span></span>
-<span id="cb19-222"><a href="#cb19-222" aria-hidden="true" tabindex="-1"></a>app_secret <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_secret"</span>) <span class="co"># This is assigned by strava as well listed as "Client Secret" above. You need to create an account and app in order to see this.</span></span>
-<span id="cb19-223"><a href="#cb19-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-224"><a href="#cb19-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-225"><a href="#cb19-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### Endpoint URLs</span></span>
-<span id="cb19-226"><a href="#cb19-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-227"><a href="#cb19-227" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Location's where Strava's server/servers are hosting the data. They can be found in <span class="co">[</span><span class="ot">Strava API V3 Documentation</span><span class="co">](https://developers.strava.com/docs/ "Strava API V3 Documentation")</span>{.uri}</span>
-<span id="cb19-228"><a href="#cb19-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-229"><a href="#cb19-229" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Token URL - https://www.strava.com/oauth/token](images/Token%20URL.png)</span>{width="660"}</span>
-<span id="cb19-230"><a href="#cb19-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-231"><a href="#cb19-231" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Authorization URL - https://www.strava.com/oauth/authorize](images/Authorization%20endpoint.png)</span></span>
-<span id="cb19-232"><a href="#cb19-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-235"><a href="#cb19-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb19-236"><a href="#cb19-236" aria-hidden="true" tabindex="-1"></a>token_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/oauth/token"</span></span>
-<span id="cb19-237"><a href="#cb19-237" aria-hidden="true" tabindex="-1"></a>auth_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/oauth/authorize"</span></span>
-<span id="cb19-238"><a href="#cb19-238" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/api/v3"</span></span>
-<span id="cb19-239"><a href="#cb19-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-240"><a href="#cb19-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-241"><a href="#cb19-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-242"><a href="#cb19-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scopes</span></span>
-<span id="cb19-243"><a href="#cb19-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-244"><a href="#cb19-244" aria-hidden="true" tabindex="-1"></a><span class="al">![Strava Scopes - These define the applications access controls](images/Strava%20Scopes.png)</span></span>
-<span id="cb19-245"><a href="#cb19-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-246"><a href="#cb19-246" aria-hidden="true" tabindex="-1"></a>Creating our request &amp; using <span class="co">[</span><span class="ot">req_dry_run()</span><span class="co">](https://httr2.r-lib.org/reference/req_dry_run.html)</span> to see what the request entails:</span>
-<span id="cb19-247"><a href="#cb19-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-250"><a href="#cb19-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb19-251"><a href="#cb19-251" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(base_url)</span>
-<span id="cb19-252"><a href="#cb19-252" aria-hidden="true" tabindex="-1"></a>req <span class="sc">%&gt;%</span> <span class="fu">req_headers</span>(<span class="at">Name =</span> <span class="st">"Luke Albracht"</span>) <span class="sc">%&gt;%</span> <span class="fu">req_dry_run</span>() </span>
-<span id="cb19-253"><a href="#cb19-253" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows:</span></span>
-<span id="cb19-254"><a href="#cb19-254" aria-hidden="true" tabindex="-1"></a><span class="co"># Method - GET </span></span>
-<span id="cb19-255"><a href="#cb19-255" aria-hidden="true" tabindex="-1"></a><span class="co"># Path - (/api/v3) </span></span>
-<span id="cb19-256"><a href="#cb19-256" aria-hidden="true" tabindex="-1"></a><span class="co"># HTTP protocol version - HTTP/1.1</span></span>
-<span id="cb19-257"><a href="#cb19-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-258"><a href="#cb19-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-259"><a href="#cb19-259" aria-hidden="true" tabindex="-1"></a><span class="fu">### Client Creation</span></span>
-<span id="cb19-260"><a href="#cb19-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-261"><a href="#cb19-261" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">httr2 OAuth vignette</span><span class="co">](https://httr2.r-lib.org/articles/oauth.html)</span> starts with client creation which is the first step to API connection. Using the <span class="co">[</span><span class="ot">oauth_client()</span><span class="co">](https://httr2.r-lib.org/reference/oauth_client.html)</span> function. The arguments id, token_url, secret, and name are all elements that we already accumulated. Below I have assigned these to the "strava_client" object.</span>
-<span id="cb19-262"><a href="#cb19-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-265"><a href="#cb19-265" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb19-266"><a href="#cb19-266" aria-hidden="true" tabindex="-1"></a><span class="co">#Client creation httr2:</span></span>
-<span id="cb19-267"><a href="#cb19-267" aria-hidden="true" tabindex="-1"></a>strava_client <span class="ot">&lt;-</span> <span class="fu">oauth_client</span>(</span>
-<span id="cb19-268"><a href="#cb19-268" aria-hidden="true" tabindex="-1"></a>    app_client_id,</span>
-<span id="cb19-269"><a href="#cb19-269" aria-hidden="true" tabindex="-1"></a>    <span class="at">secret =</span> app_secret,</span>
-<span id="cb19-270"><a href="#cb19-270" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> app_name,</span>
-<span id="cb19-271"><a href="#cb19-271" aria-hidden="true" tabindex="-1"></a>    <span class="at">token_url =</span> token_url)</span>
-<span id="cb19-272"><a href="#cb19-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-273"><a href="#cb19-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-274"><a href="#cb19-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### OAuth code flow</span></span>
-<span id="cb19-275"><a href="#cb19-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-276"><a href="#cb19-276" aria-hidden="true" tabindex="-1"></a>R continues to throw an error over the code below. I could not figure out the purpose of this step when we just ended up using <span class="co">[</span><span class="ot">req_oauth_auth_code()</span><span class="co">](https://httr2.r-lib.org/reference/req_oauth_auth_code.html)</span> below in our GET request. The way that I understand this, since we already have our token this step took us to the auth_url. Seems like it might be an issue specific to the API or user error. Regardless, I am keeping this step as a part of the process.</span>
-<span id="cb19-277"><a href="#cb19-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-280"><a href="#cb19-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb19-281"><a href="#cb19-281" aria-hidden="true" tabindex="-1"></a><span class="fu">req_dry_run</span>(<span class="fu">oauth_client_req_auth</span>(req,strava_client))</span>
-<span id="cb19-282"><a href="#cb19-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-283"><a href="#cb19-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-284"><a href="#cb19-284" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Authentication%20Steps%20API.png)</span></span>
-<span id="cb19-285"><a href="#cb19-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-286"><a href="#cb19-286" aria-hidden="true" tabindex="-1"></a><span class="fu">### Request</span></span>
-<span id="cb19-287"><a href="#cb19-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-288"><a href="#cb19-288" aria-hidden="true" tabindex="-1"></a>To do this in httr2 I took the "req" object created above and piped it through to the family of "req<span class="sc">\_</span>" functions that help to authenticate the request.</span>
-<span id="cb19-289"><a href="#cb19-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-290"><a href="#cb19-290" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">req_url_path_append()</span><span class="co">](https://httr2.r-lib.org/reference/req_url.html)</span> - adding the endpoints that I need to the base url above. The endpoints come from the Strava API which details what data each endpoint contains.</span>
-<span id="cb19-291"><a href="#cb19-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-292"><a href="#cb19-292" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">req_url_query()</span><span class="co">](https://httr2.r-lib.org/reference/req_url.html)</span> - Strava's docs dictate that we can specify the number of pages as well as items per page. Items per page or activities per page is set to the default of 30 and pages defaults as 1. We can use the url query to pass these unique parameters into our request.</span>
-<span id="cb19-293"><a href="#cb19-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-294"><a href="#cb19-294" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">req_oauth_auth_code()</span><span class="co">](https://httr2.r-lib.org/reference/req_oauth_auth_code.html)</span> - Finally we used this function for our authorization code flow as it covers what is needed for our application.</span>
-<span id="cb19-295"><a href="#cb19-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-296"><a href="#cb19-296" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Endpoint Params for URL query](Images/Activities%20Endpoint%20Params.png)</span>{width="464"}</span>
-<span id="cb19-297"><a href="#cb19-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-298"><a href="#cb19-298" aria-hidden="true" tabindex="-1"></a>    Basic httr2 piped based GET request:</span>
-<span id="cb19-299"><a href="#cb19-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-300"><a href="#cb19-300" aria-hidden="true" tabindex="-1"></a>    <span class="in">```{r, eval=FALSE}</span></span>
-<span id="cb19-301"><a href="#cb19-301" aria-hidden="true" tabindex="-1"></a><span class="in">    #GET request using everything we have covered so far:</span></span>
-<span id="cb19-302"><a href="#cb19-302" aria-hidden="true" tabindex="-1"></a><span class="in">    req &lt;- request(base_url) %&gt;%</span></span>
-<span id="cb19-303"><a href="#cb19-303" aria-hidden="true" tabindex="-1"></a><span class="in">      req_url_path_append("activities") %&gt;%</span></span>
-<span id="cb19-304"><a href="#cb19-304" aria-hidden="true" tabindex="-1"></a><span class="in">      req_url_query(per_page = 200, page = 1) %&gt;%</span></span>
-<span id="cb19-305"><a href="#cb19-305" aria-hidden="true" tabindex="-1"></a><span class="in">      req_oauth_auth_code(client = strava_client,</span></span>
-<span id="cb19-306"><a href="#cb19-306" aria-hidden="true" tabindex="-1"></a><span class="in">                          auth_url = auth_url,</span></span>
-<span id="cb19-307"><a href="#cb19-307" aria-hidden="true" tabindex="-1"></a><span class="in">                          scope = "activity:read_all")</span></span>
-<span id="cb19-308"><a href="#cb19-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-309"><a href="#cb19-309" aria-hidden="true" tabindex="-1"></a><span class="in">    #Performing request and returning the HTTP response and storing it:</span></span>
-<span id="cb19-310"><a href="#cb19-310" aria-hidden="true" tabindex="-1"></a><span class="in">    resp &lt;- req %&gt;% req_perform()</span></span>
-<span id="cb19-311"><a href="#cb19-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-312"><a href="#cb19-312" aria-hidden="true" tabindex="-1"></a><span class="in">    #Storing the body of the response as a list of lists:</span></span>
-<span id="cb19-313"><a href="#cb19-313" aria-hidden="true" tabindex="-1"></a><span class="in">    strava_json &lt;- resp %&gt;% resp_body_json()</span></span>
-<span id="cb19-314"><a href="#cb19-314" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
-<span id="cb19-315"><a href="#cb19-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-316"><a href="#cb19-316" aria-hidden="true" tabindex="-1"></a>To re-cap at this point I now have the follow data objects in my environment window:</span>
-<span id="cb19-317"><a href="#cb19-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-318"><a href="#cb19-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
-<span id="cb19-319"><a href="#cb19-319" aria-hidden="true" tabindex="-1"></a><span class="in">#This function was built to return the Name and Type of object in the enviroment window - I wanted a filtered list of the objects that matter and did not want to include the values/secrets:</span></span>
-<span id="cb19-320"><a href="#cb19-320" aria-hidden="true" tabindex="-1"></a><span class="in">env_obj_classes &lt;- function() {</span></span>
-<span id="cb19-321"><a href="#cb19-321" aria-hidden="true" tabindex="-1"></a><span class="in">  # List the objects in your R environment</span></span>
-<span id="cb19-322"><a href="#cb19-322" aria-hidden="true" tabindex="-1"></a><span class="in">  object_list &lt;- ls(envir = .GlobalEnv)</span></span>
-<span id="cb19-323"><a href="#cb19-323" aria-hidden="true" tabindex="-1"></a><span class="in">  # Check if there are no objects</span></span>
-<span id="cb19-324"><a href="#cb19-324" aria-hidden="true" tabindex="-1"></a><span class="in">  if (length(object_list) == 0) {</span></span>
-<span id="cb19-325"><a href="#cb19-325" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("No objects found in the environment.\n")</span></span>
-<span id="cb19-326"><a href="#cb19-326" aria-hidden="true" tabindex="-1"></a><span class="in">    return(data.frame(Name = character(), Class = character(), stringsAsFactors = FALSE))</span></span>
-<span id="cb19-327"><a href="#cb19-327" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
-<span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a><span class="in">  # Initialize an empty data frame</span></span>
-<span id="cb19-329"><a href="#cb19-329" aria-hidden="true" tabindex="-1"></a><span class="in">  env_obj_df &lt;- data.frame(Name = character(), Class = character(), stringsAsFactors = FALSE)</span></span>
-<span id="cb19-330"><a href="#cb19-330" aria-hidden="true" tabindex="-1"></a><span class="in">  # Loop through each object and populate the data frame</span></span>
-<span id="cb19-331"><a href="#cb19-331" aria-hidden="true" tabindex="-1"></a><span class="in">  for (object_name in object_list) {</span></span>
-<span id="cb19-332"><a href="#cb19-332" aria-hidden="true" tabindex="-1"></a><span class="in">    env_obj_df &lt;- rbind(</span></span>
-<span id="cb19-333"><a href="#cb19-333" aria-hidden="true" tabindex="-1"></a><span class="in">      env_obj_df,</span></span>
-<span id="cb19-334"><a href="#cb19-334" aria-hidden="true" tabindex="-1"></a><span class="in">      data.frame(</span></span>
-<span id="cb19-335"><a href="#cb19-335" aria-hidden="true" tabindex="-1"></a><span class="in">        Name = object_name,</span></span>
-<span id="cb19-336"><a href="#cb19-336" aria-hidden="true" tabindex="-1"></a><span class="in">        Class = class(get(object_name)),</span></span>
-<span id="cb19-337"><a href="#cb19-337" aria-hidden="true" tabindex="-1"></a><span class="in">        stringsAsFactors = FALSE</span></span>
-<span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a><span class="in">      )</span></span>
-<span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a><span class="in">    )</span></span>
-<span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
-<span id="cb19-341"><a href="#cb19-341" aria-hidden="true" tabindex="-1"></a><span class="in">  return(env_obj_df)</span></span>
-<span id="cb19-342"><a href="#cb19-342" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb19-343"><a href="#cb19-343" aria-hidden="true" tabindex="-1"></a><span class="in">env_obj_classes() %&gt;% filter(str_detect(Name,"strava|req|resp")) %&gt;% tibble()</span></span>
-<span id="cb19-344"><a href="#cb19-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-345"><a href="#cb19-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-346"><a href="#cb19-346" aria-hidden="true" tabindex="-1"></a><span class="al">![](Images/Objects.png)</span></span>
-<span id="cb19-347"><a href="#cb19-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-348"><a href="#cb19-348" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part II \| Request Modification</span></span>
-<span id="cb19-349"><a href="#cb19-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-350"><a href="#cb19-350" aria-hidden="true" tabindex="-1"></a>Up to this point I have covered the following:</span>
-<span id="cb19-351"><a href="#cb19-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-352"><a href="#cb19-352" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The basics of OAuth2.0 &amp; HTTP</span>
-<span id="cb19-353"><a href="#cb19-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-354"><a href="#cb19-354" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The important parts of Strava's API and how to use them to connect.</span>
-<span id="cb19-355"><a href="#cb19-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-356"><a href="#cb19-356" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The basics of a GET request using httr2</span>
-<span id="cb19-357"><a href="#cb19-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-358"><a href="#cb19-358" aria-hidden="true" tabindex="-1"></a>The last part of this walk through I will cover pagination and how to modify your request in order to gather all available user data. I will be drawing from the <span class="co">[</span><span class="ot">rStrava</span><span class="co">](https://github.com/fawda123/rStrava)</span> package and watering it down to learn from them and to modify their functions for my own uses. Their package and functions take out all of the leg work that I am doing and I highly recommend using them. However, like I said in the beginning, I am using this project to develop and learn about what what is going on "under the hood".</span>
-<span id="cb19-359"><a href="#cb19-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-360"><a href="#cb19-360" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pagination</span></span>
-<span id="cb19-361"><a href="#cb19-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-362"><a href="#cb19-362" aria-hidden="true" tabindex="-1"></a>This is extremely important concept if you are new to working with APIs. Pagination as it refers to APIs is the practice of breaking up the data into smaller chunks. From what I gathered, the main reason this is done is to improve performance. In my case rather than pull all 600+ activities they are broken up into chunks of 200. We can see from the Strava API that the activities endpoint has query parameters page &amp; per_page listed above. This might be simple for most to understand, but I made the mistake of thinking of "page" as "number of pages" when above it is defined as "page number" in the sense that the pages are indexed. Each page is given an "id" 1,2,3,4..... each page can at max hold 200 items or activities. The defaults are set to pull 30 items from page 1. How did we find the 200 max? - Answer in the docs:</span>
-<span id="cb19-363"><a href="#cb19-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-364"><a href="#cb19-364" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Strava%20Pagination.png)</span></span>
-<span id="cb19-365"><a href="#cb19-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-366"><a href="#cb19-366" aria-hidden="true" tabindex="-1"></a><span class="fu">### Rate Limits</span></span>
-<span id="cb19-367"><a href="#cb19-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-368"><a href="#cb19-368" aria-hidden="true" tabindex="-1"></a>In my case rate limits are not as big a concern as I will be the sole user of my application. It is highly unlikely I will exceed either of the limits. We can find the two types of "rate limits" that Strava maintains. The value of <span class="in">`X-RateLimit-Limit`</span> is "200,2000" this is read as: "200 requests every 15 minutes, 2000 daily requests" we are dependent upon Strava's documentation for this information which is referred to as the "overall rate limit". Additionally, The value of <span class="in">`X-ReadRateLimit-Limit`</span> is "100,1000" this is read as: "100 requests every 15 minutes, 1000 daily requests" this is referred to as "read rate limit". Which one do we use?</span>
-<span id="cb19-369"><a href="#cb19-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-370"><a href="#cb19-370" aria-hidden="true" tabindex="-1"></a>This is another example of where we are really dependent upon "good/detailed" API documentation. The distinction between "overall rate limit" &amp; "read rate limit" is obscure. I did not find it explicitly detailed in the documentation and I believe other users found the same issues. After this question was posted in the Strava forums the answer was published by Strava. They detail that the type of activity is a consideration in the rate limits:</span>
-<span id="cb19-371"><a href="#cb19-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-372"><a href="#cb19-372" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Rate%20Limits%20Explainations-01.png)</span>{width="671"}</span>
-<span id="cb19-373"><a href="#cb19-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-374"><a href="#cb19-374" aria-hidden="true" tabindex="-1"></a>I know that my goal will only employ the use of the HTTP GET requests so this answers my question and I will use <span class="in">`X-RateLimit-Limit`</span> &amp; <span class="in">`X-RateLimit-Usage`</span> for my project. Given the above considerations of pagination and rate limits, we know at max we can get 200 activities per page but right now the request is only pulling one page at a time. I have \~600 activities I would like to gather data on. So we have two tasks:</span>
-<span id="cb19-375"><a href="#cb19-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-376"><a href="#cb19-376" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Using Iteration to get around the Pagination problem:</span>
-<span id="cb19-377"><a href="#cb19-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-378"><a href="#cb19-378" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="co">[</span><span class="ot">req_perform_iterative()</span><span class="co">](https://httr2.r-lib.org/reference/req_perform_iterative.html)</span> - I am using this to perform multiple requests to the API iteratively:</span>
-<span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-380"><a href="#cb19-380" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span>I pass my <span class="in">`req`</span> request from above as one of the arguments.</span>
-<span id="cb19-381"><a href="#cb19-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-382"><a href="#cb19-382" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span><span class="in">`next_req()`</span> this argument is a function that allows me to define how I want to handle the next request. In this case I am going to pass another function into this argument <span class="in">`iterate_with_offset()`</span>.</span>
-<span id="cb19-383"><a href="#cb19-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-384"><a href="#cb19-384" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span><span class="in">`progress`</span> - added a progress bar because its pretty cool!</span>
-<span id="cb19-385"><a href="#cb19-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-386"><a href="#cb19-386" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="co">[</span><span class="ot">iterate_with_offset()</span><span class="co">](https://httr2.r-lib.org/reference/iterate_with_offset.html)</span> - With this function I can adjust the query params from my original request. In this case I am targeting the page parameter. The key to this function is the callback function <span class="in">`is_complete`</span> that is nested inside.</span>
-<span id="cb19-387"><a href="#cb19-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-388"><a href="#cb19-388" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span><span class="in">`is_complete`</span> - Evaluates to either TRUE or FALSE. When the <span class="in">`resp`</span> object is returned in each iteration this function looks at the length of the body of the object. When length is == 0 that means there are no more activities to pull; <span class="in">`is_complete`</span> would return TRUE and the <span class="in">`resp_complete`</span> argument will stop the loop (Note: the loop is stopped on the first page to return 0 so we do receive one empty page but it will not affect the output).</span>
-<span id="cb19-389"><a href="#cb19-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-390"><a href="#cb19-390" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Set parameters for total requests:</span>
-<span id="cb19-391"><a href="#cb19-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-392"><a href="#cb19-392" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>This is not as serious in my case because I am not creating a package and I have no users. but regardless <span class="co">[</span><span class="ot">req_perform_iterative()</span><span class="co">](https://httr2.r-lib.org/reference/req_perform_iterative.html)</span> -<span class="sc">\&gt;</span> <span class="in">`max_reqs`</span> allows me to plug in my current usage rate to be positive that I never eclipse the 15 minute request limit. <span class="co">[</span><span class="ot">Ratelimit()</span><span class="co">](https://github.com/fawda123/rStrava/blob/master/R/ratelimit.R)</span> comes from <span class="co">[</span><span class="ot">rStrava</span><span class="co">](https://github.com/fawda123/rStrava/blob/master/R/ratelimit.R)</span> I am including it here in the context of rate limits as an example how to handle them.</span>
-<span id="cb19-393"><a href="#cb19-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-394"><a href="#cb19-394" aria-hidden="true" tabindex="-1"></a>That's it, below is the complete modified request. that I do not have to re-run everything I will call the basic request using R's source function:</span>
-<span id="cb19-395"><a href="#cb19-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-396"><a href="#cb19-396" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
-<span id="cb19-397"><a href="#cb19-397" aria-hidden="true" tabindex="-1"></a><span class="in">#Callback function that with logical response:</span></span>
-<span id="cb19-398"><a href="#cb19-398" aria-hidden="true" tabindex="-1"></a><span class="in">is_complete &lt;- function(resp) {</span></span>
-<span id="cb19-399"><a href="#cb19-399" aria-hidden="true" tabindex="-1"></a><span class="in">  length(resp_body_json(resp)) == 0</span></span>
-<span id="cb19-400"><a href="#cb19-400" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb19-401"><a href="#cb19-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-402"><a href="#cb19-402" aria-hidden="true" tabindex="-1"></a><span class="in">ratelimit &lt;- function(req){</span></span>
-<span id="cb19-403"><a href="#cb19-403" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb19-404"><a href="#cb19-404" aria-hidden="true" tabindex="-1"></a><span class="in">    limit &lt;- as.integer(strsplit(req$headers$`x-ratelimit-limit`, ",")[[1]])</span></span>
-<span id="cb19-405"><a href="#cb19-405" aria-hidden="true" tabindex="-1"></a><span class="in">    usage &lt;- as.integer(strsplit(req$headers$`x-ratelimit-usage`, ",")[[1]])</span></span>
-<span id="cb19-406"><a href="#cb19-406" aria-hidden="true" tabindex="-1"></a><span class="in">    usage_left &lt;- limit - usage</span></span>
-<span id="cb19-407"><a href="#cb19-407" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb19-408"><a href="#cb19-408" aria-hidden="true" tabindex="-1"></a><span class="in">#performs all three calculations above but returns only the last calculation when the function is used. </span></span>
-<span id="cb19-409"><a href="#cb19-409" aria-hidden="true" tabindex="-1"></a><span class="in">    return(usage_left)</span></span>
-<span id="cb19-410"><a href="#cb19-410" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb19-411"><a href="#cb19-411" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb19-412"><a href="#cb19-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-413"><a href="#cb19-413" aria-hidden="true" tabindex="-1"></a><span class="in">#Below is the wrapped iterative request with all of our functions and reqs placed inside:</span></span>
-<span id="cb19-414"><a href="#cb19-414" aria-hidden="true" tabindex="-1"></a><span class="in">resps &lt;- req_perform_iterative(</span></span>
-<span id="cb19-415"><a href="#cb19-415" aria-hidden="true" tabindex="-1"></a><span class="in">  req,</span></span>
-<span id="cb19-416"><a href="#cb19-416" aria-hidden="true" tabindex="-1"></a><span class="in">  next_req = iterate_with_offset(start = 1,"page", resp_complete = is_complete),</span></span>
-<span id="cb19-417"><a href="#cb19-417" aria-hidden="true" tabindex="-1"></a><span class="in">  max_reqs = ratelimit(resp) %&gt;% .[1],</span></span>
-<span id="cb19-418"><a href="#cb19-418" aria-hidden="true" tabindex="-1"></a><span class="in">  progress = TRUE</span></span>
-<span id="cb19-419"><a href="#cb19-419" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb19-420"><a href="#cb19-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-201"><a href="#cb19-201" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Base URL - This can be found in the API documentation:</span>
+<span id="cb19-202"><a href="#cb19-202" aria-hidden="true" tabindex="-1"></a><span class="al">![Base URL](~/3_R/strava-data/Images/Strava%20Base%20URL.png)</span>{width="486"}</span>
+<span id="cb19-203"><a href="#cb19-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-204"><a href="#cb19-204" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Data formats - The next consideration we have to make is the structure of the data that the API contains. There are two common formats; JSON (JavaScript Object Notation) and XML (extensible Markup Language). Strava's structure is JSON so we are going to recruit the <span class="co">[</span><span class="ot">jsonlite</span><span class="co">](https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html "jsonlite vignettes")</span> package to help parse and map the API's data into R objects.</span>
+<span id="cb19-205"><a href="#cb19-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-206"><a href="#cb19-206" aria-hidden="true" tabindex="-1"></a><span class="fu">### API Application</span></span>
+<span id="cb19-207"><a href="#cb19-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-208"><a href="#cb19-208" aria-hidden="true" tabindex="-1"></a>In this step we are going to put everything together. Using what we know about HTTP requests, OAuth2.0, and the instructions presented in <span class="co">[</span><span class="ot">Strava API V3 Documentation</span><span class="co">](https://developers.strava.com/docs/ "Strava API V3 Documentation")</span>{.uri} we should have <span class="co">[</span><span class="ot">registered our application</span><span class="co">](https://developers.strava.com/docs/getting-started/#account)</span> and generated our tokens.</span>
+<span id="cb19-209"><a href="#cb19-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-210"><a href="#cb19-210" aria-hidden="true" tabindex="-1"></a><span class="al">![Example Strava Creditials](images/API Application Example.png)</span>{fig-align="center" width="594"}</span>
+<span id="cb19-211"><a href="#cb19-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-212"><a href="#cb19-212" aria-hidden="true" tabindex="-1"></a><span class="fu">### GET Request \| [httr2](https://httr2.r-lib.org/)</span></span>
+<span id="cb19-213"><a href="#cb19-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-214"><a href="#cb19-214" aria-hidden="true" tabindex="-1"></a>Below I will be leaning on the <span class="co">[</span><span class="ot">httr2 OAuth vignette</span><span class="co">](https://httr2.r-lib.org/articles/oauth.html)</span> and taking notes/learning as I go. This vignette gives a much more in depth description of the OAuth framework and breaks down the httr2 connection process very succinctly.</span>
+<span id="cb19-215"><a href="#cb19-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-216"><a href="#cb19-216" aria-hidden="true" tabindex="-1"></a>For privacy I have added all keys to my .Renviron file. The keys are saved as environment variables to avoid including the creditials inside my code below I am assigning them so that I can use them in the GET request:</span>
+<span id="cb19-217"><a href="#cb19-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-220"><a href="#cb19-220" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-221"><a href="#cb19-221" aria-hidden="true" tabindex="-1"></a>app_name <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_name"</span>) <span class="co"># Chosen by user</span></span>
+<span id="cb19-222"><a href="#cb19-222" aria-hidden="true" tabindex="-1"></a>app_client_id <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_client_id"</span>) <span class="co"># this is assigned by Strava above listed as "Client ID" in the image</span></span>
+<span id="cb19-223"><a href="#cb19-223" aria-hidden="true" tabindex="-1"></a>app_secret <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_secret"</span>) <span class="co"># This is assigned by strava as well listed as "Client Secret" above. You need to create an account and app in order to see this.</span></span>
+<span id="cb19-224"><a href="#cb19-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-225"><a href="#cb19-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-226"><a href="#cb19-226" aria-hidden="true" tabindex="-1"></a><span class="fu">### Endpoint URLs</span></span>
+<span id="cb19-227"><a href="#cb19-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-228"><a href="#cb19-228" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Location's where Strava's server/servers are hosting the data. They can be found in <span class="co">[</span><span class="ot">Strava API V3 Documentation</span><span class="co">](https://developers.strava.com/docs/ "Strava API V3 Documentation")</span>{.uri}</span>
+<span id="cb19-229"><a href="#cb19-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-230"><a href="#cb19-230" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Token URL - https://www.strava.com/oauth/token](images/Token%20URL.png)</span>{width="660"}</span>
+<span id="cb19-231"><a href="#cb19-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-232"><a href="#cb19-232" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Authorization URL - https://www.strava.com/oauth/authorize](images/Authorization%20endpoint.png)</span></span>
+<span id="cb19-233"><a href="#cb19-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-236"><a href="#cb19-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-237"><a href="#cb19-237" aria-hidden="true" tabindex="-1"></a>token_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/oauth/token"</span></span>
+<span id="cb19-238"><a href="#cb19-238" aria-hidden="true" tabindex="-1"></a>auth_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/oauth/authorize"</span></span>
+<span id="cb19-239"><a href="#cb19-239" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/api/v3"</span></span>
+<span id="cb19-240"><a href="#cb19-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-241"><a href="#cb19-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-242"><a href="#cb19-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-243"><a href="#cb19-243" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scopes</span></span>
+<span id="cb19-244"><a href="#cb19-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-245"><a href="#cb19-245" aria-hidden="true" tabindex="-1"></a><span class="al">![Strava Scopes - These define the applications access controls](images/Strava%20Scopes.png)</span></span>
+<span id="cb19-246"><a href="#cb19-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-247"><a href="#cb19-247" aria-hidden="true" tabindex="-1"></a>Creating our request &amp; using <span class="co">[</span><span class="ot">req_dry_run()</span><span class="co">](https://httr2.r-lib.org/reference/req_dry_run.html)</span> to see what the request entails:</span>
+<span id="cb19-248"><a href="#cb19-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-251"><a href="#cb19-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-252"><a href="#cb19-252" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(base_url)</span>
+<span id="cb19-253"><a href="#cb19-253" aria-hidden="true" tabindex="-1"></a>req <span class="sc">%&gt;%</span> <span class="fu">req_headers</span>(<span class="at">Name =</span> <span class="st">"Luke Albracht"</span>) <span class="sc">%&gt;%</span> <span class="fu">req_dry_run</span>() </span>
+<span id="cb19-254"><a href="#cb19-254" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows:</span></span>
+<span id="cb19-255"><a href="#cb19-255" aria-hidden="true" tabindex="-1"></a><span class="co"># Method - GET </span></span>
+<span id="cb19-256"><a href="#cb19-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Path - (/api/v3) </span></span>
+<span id="cb19-257"><a href="#cb19-257" aria-hidden="true" tabindex="-1"></a><span class="co"># HTTP protocol version - HTTP/1.1</span></span>
+<span id="cb19-258"><a href="#cb19-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-259"><a href="#cb19-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-260"><a href="#cb19-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Client Creation</span></span>
+<span id="cb19-261"><a href="#cb19-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-262"><a href="#cb19-262" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">httr2 OAuth vignette</span><span class="co">](https://httr2.r-lib.org/articles/oauth.html)</span> starts with client creation which is the first step to API connection. Using the <span class="co">[</span><span class="ot">oauth_client()</span><span class="co">](https://httr2.r-lib.org/reference/oauth_client.html)</span> function. The arguments id, token_url, secret, and name are all elements that we already accumulated. Below I have assigned these to the "strava_client" object.</span>
+<span id="cb19-263"><a href="#cb19-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-266"><a href="#cb19-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-267"><a href="#cb19-267" aria-hidden="true" tabindex="-1"></a><span class="co">#Client creation httr2:</span></span>
+<span id="cb19-268"><a href="#cb19-268" aria-hidden="true" tabindex="-1"></a>strava_client <span class="ot">&lt;-</span> <span class="fu">oauth_client</span>(</span>
+<span id="cb19-269"><a href="#cb19-269" aria-hidden="true" tabindex="-1"></a>    app_client_id,</span>
+<span id="cb19-270"><a href="#cb19-270" aria-hidden="true" tabindex="-1"></a>    <span class="at">secret =</span> app_secret,</span>
+<span id="cb19-271"><a href="#cb19-271" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> app_name,</span>
+<span id="cb19-272"><a href="#cb19-272" aria-hidden="true" tabindex="-1"></a>    <span class="at">token_url =</span> token_url)</span>
+<span id="cb19-273"><a href="#cb19-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-274"><a href="#cb19-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-275"><a href="#cb19-275" aria-hidden="true" tabindex="-1"></a><span class="fu">### OAuth code flow</span></span>
+<span id="cb19-276"><a href="#cb19-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-277"><a href="#cb19-277" aria-hidden="true" tabindex="-1"></a>R continues to throw an error over the code below. I could not figure out the purpose of this step when we just ended up using <span class="co">[</span><span class="ot">req_oauth_auth_code()</span><span class="co">](https://httr2.r-lib.org/reference/req_oauth_auth_code.html)</span> below in our GET request. The way that I understand this, since we already have our token this step took us to the auth_url. Seems like it might be an issue specific to the API or user error. Regardless, I am keeping this step as a part of the process.</span>
+<span id="cb19-278"><a href="#cb19-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-281"><a href="#cb19-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-282"><a href="#cb19-282" aria-hidden="true" tabindex="-1"></a><span class="fu">req_dry_run</span>(<span class="fu">oauth_client_req_auth</span>(req,strava_client))</span>
+<span id="cb19-283"><a href="#cb19-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-284"><a href="#cb19-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-285"><a href="#cb19-285" aria-hidden="true" tabindex="-1"></a><span class="al">![Authentication message](images/Authentication.png)</span></span>
+<span id="cb19-286"><a href="#cb19-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-287"><a href="#cb19-287" aria-hidden="true" tabindex="-1"></a><span class="fu">### Request</span></span>
+<span id="cb19-288"><a href="#cb19-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-289"><a href="#cb19-289" aria-hidden="true" tabindex="-1"></a>To do this in httr2 I took the "req" object created above and piped it through to the family of "req<span class="sc">\_</span>" functions that help to authenticate the request.</span>
+<span id="cb19-290"><a href="#cb19-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-291"><a href="#cb19-291" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">req_url_path_append()</span><span class="co">](https://httr2.r-lib.org/reference/req_url.html)</span> - adding the endpoints that I need to the base url above. The endpoints come from the Strava API which details what data each endpoint contains.</span>
+<span id="cb19-292"><a href="#cb19-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-293"><a href="#cb19-293" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">req_url_query()</span><span class="co">](https://httr2.r-lib.org/reference/req_url.html)</span> - Strava's docs dictate that we can specify the number of pages as well as items per page. Items per page or activities per page is set to the default of 30 and pages defaults as 1. We can use the url query to pass these unique parameters into our request.</span>
+<span id="cb19-294"><a href="#cb19-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-295"><a href="#cb19-295" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">req_oauth_auth_code()</span><span class="co">](https://httr2.r-lib.org/reference/req_oauth_auth_code.html)</span> - Finally we used this function for our authorization code flow as it covers what is needed for our application.</span>
+<span id="cb19-296"><a href="#cb19-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-297"><a href="#cb19-297" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Endpoint Params for URL query](Images/Activities%20Endpoint%20Params.png)</span>{width="464"}</span>
+<span id="cb19-298"><a href="#cb19-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-299"><a href="#cb19-299" aria-hidden="true" tabindex="-1"></a>    Basic httr2 piped based GET request:</span>
+<span id="cb19-300"><a href="#cb19-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-301"><a href="#cb19-301" aria-hidden="true" tabindex="-1"></a>    <span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb19-302"><a href="#cb19-302" aria-hidden="true" tabindex="-1"></a><span class="in">    #GET request using everything we have covered so far:</span></span>
+<span id="cb19-303"><a href="#cb19-303" aria-hidden="true" tabindex="-1"></a><span class="in">    req &lt;- request(base_url) %&gt;%</span></span>
+<span id="cb19-304"><a href="#cb19-304" aria-hidden="true" tabindex="-1"></a><span class="in">      req_url_path_append("activities") %&gt;%</span></span>
+<span id="cb19-305"><a href="#cb19-305" aria-hidden="true" tabindex="-1"></a><span class="in">      req_url_query(per_page = 200, page = 1) %&gt;%</span></span>
+<span id="cb19-306"><a href="#cb19-306" aria-hidden="true" tabindex="-1"></a><span class="in">      req_oauth_auth_code(client = strava_client,</span></span>
+<span id="cb19-307"><a href="#cb19-307" aria-hidden="true" tabindex="-1"></a><span class="in">                          auth_url = auth_url,</span></span>
+<span id="cb19-308"><a href="#cb19-308" aria-hidden="true" tabindex="-1"></a><span class="in">                          scope = "activity:read_all")</span></span>
+<span id="cb19-309"><a href="#cb19-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-310"><a href="#cb19-310" aria-hidden="true" tabindex="-1"></a><span class="in">    #Performing request and returning the HTTP response and storing it:</span></span>
+<span id="cb19-311"><a href="#cb19-311" aria-hidden="true" tabindex="-1"></a><span class="in">    resp &lt;- req %&gt;% req_perform()</span></span>
+<span id="cb19-312"><a href="#cb19-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-313"><a href="#cb19-313" aria-hidden="true" tabindex="-1"></a><span class="in">    #Storing the body of the response as a list of lists:</span></span>
+<span id="cb19-314"><a href="#cb19-314" aria-hidden="true" tabindex="-1"></a><span class="in">    strava_json &lt;- resp %&gt;% resp_body_json()</span></span>
+<span id="cb19-315"><a href="#cb19-315" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
+<span id="cb19-316"><a href="#cb19-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-317"><a href="#cb19-317" aria-hidden="true" tabindex="-1"></a>To re-cap at this point I now have the follow data objects in my environment window:</span>
+<span id="cb19-318"><a href="#cb19-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-319"><a href="#cb19-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb19-320"><a href="#cb19-320" aria-hidden="true" tabindex="-1"></a><span class="in">#This function was built to return the Name and Type of object in the enviroment window - I wanted a filtered list of the objects that matter and did not want to include the values/secrets:</span></span>
+<span id="cb19-321"><a href="#cb19-321" aria-hidden="true" tabindex="-1"></a><span class="in">env_obj_classes &lt;- function() {</span></span>
+<span id="cb19-322"><a href="#cb19-322" aria-hidden="true" tabindex="-1"></a><span class="in">  # List the objects in your R environment</span></span>
+<span id="cb19-323"><a href="#cb19-323" aria-hidden="true" tabindex="-1"></a><span class="in">  object_list &lt;- ls(envir = .GlobalEnv)</span></span>
+<span id="cb19-324"><a href="#cb19-324" aria-hidden="true" tabindex="-1"></a><span class="in">  # Check if there are no objects</span></span>
+<span id="cb19-325"><a href="#cb19-325" aria-hidden="true" tabindex="-1"></a><span class="in">  if (length(object_list) == 0) {</span></span>
+<span id="cb19-326"><a href="#cb19-326" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("No objects found in the environment.\n")</span></span>
+<span id="cb19-327"><a href="#cb19-327" aria-hidden="true" tabindex="-1"></a><span class="in">    return(data.frame(Name = character(), Class = character(), stringsAsFactors = FALSE))</span></span>
+<span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb19-329"><a href="#cb19-329" aria-hidden="true" tabindex="-1"></a><span class="in">  # Initialize an empty data frame</span></span>
+<span id="cb19-330"><a href="#cb19-330" aria-hidden="true" tabindex="-1"></a><span class="in">  env_obj_df &lt;- data.frame(Name = character(), Class = character(), stringsAsFactors = FALSE)</span></span>
+<span id="cb19-331"><a href="#cb19-331" aria-hidden="true" tabindex="-1"></a><span class="in">  # Loop through each object and populate the data frame</span></span>
+<span id="cb19-332"><a href="#cb19-332" aria-hidden="true" tabindex="-1"></a><span class="in">  for (object_name in object_list) {</span></span>
+<span id="cb19-333"><a href="#cb19-333" aria-hidden="true" tabindex="-1"></a><span class="in">    env_obj_df &lt;- rbind(</span></span>
+<span id="cb19-334"><a href="#cb19-334" aria-hidden="true" tabindex="-1"></a><span class="in">      env_obj_df,</span></span>
+<span id="cb19-335"><a href="#cb19-335" aria-hidden="true" tabindex="-1"></a><span class="in">      data.frame(</span></span>
+<span id="cb19-336"><a href="#cb19-336" aria-hidden="true" tabindex="-1"></a><span class="in">        Name = object_name,</span></span>
+<span id="cb19-337"><a href="#cb19-337" aria-hidden="true" tabindex="-1"></a><span class="in">        Class = class(get(object_name)),</span></span>
+<span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a><span class="in">        stringsAsFactors = FALSE</span></span>
+<span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a><span class="in">      )</span></span>
+<span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a><span class="in">    )</span></span>
+<span id="cb19-341"><a href="#cb19-341" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb19-342"><a href="#cb19-342" aria-hidden="true" tabindex="-1"></a><span class="in">  return(env_obj_df)</span></span>
+<span id="cb19-343"><a href="#cb19-343" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb19-344"><a href="#cb19-344" aria-hidden="true" tabindex="-1"></a><span class="in">env_obj_classes() %&gt;% filter(str_detect(Name,"strava|req|resp")) %&gt;% tibble()</span></span>
+<span id="cb19-345"><a href="#cb19-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-346"><a href="#cb19-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-347"><a href="#cb19-347" aria-hidden="true" tabindex="-1"></a><span class="al">![](Images/Objects.png)</span></span>
+<span id="cb19-348"><a href="#cb19-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-349"><a href="#cb19-349" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part II \| Request Modification</span></span>
+<span id="cb19-350"><a href="#cb19-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-351"><a href="#cb19-351" aria-hidden="true" tabindex="-1"></a>Up to this point I have covered the following:</span>
+<span id="cb19-352"><a href="#cb19-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-353"><a href="#cb19-353" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The basics of OAuth2.0 &amp; HTTP</span>
+<span id="cb19-354"><a href="#cb19-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-355"><a href="#cb19-355" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The important parts of Strava's API and how to use them to connect.</span>
+<span id="cb19-356"><a href="#cb19-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-357"><a href="#cb19-357" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The basics of a GET request using httr2</span>
+<span id="cb19-358"><a href="#cb19-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-359"><a href="#cb19-359" aria-hidden="true" tabindex="-1"></a>The last part of this walk through I will cover pagination and how to modify your request in order to gather all available user data. I will be drawing from the <span class="co">[</span><span class="ot">rStrava</span><span class="co">](https://github.com/fawda123/rStrava)</span> package and watering it down to learn from them and to modify their functions for my own uses. Their package and functions take out all of the leg work that I am doing and I highly recommend using them. However, like I said in the beginning, I am using this project to develop and learn about what what is going on "under the hood".</span>
+<span id="cb19-360"><a href="#cb19-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-361"><a href="#cb19-361" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pagination</span></span>
+<span id="cb19-362"><a href="#cb19-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-363"><a href="#cb19-363" aria-hidden="true" tabindex="-1"></a>This is extremely important concept if you are new to working with APIs. Pagination as it refers to APIs is the practice of breaking up the data into smaller chunks. From what I gathered, the main reason this is done is to improve performance. In my case rather than pull all 600+ activities they are broken up into chunks of 200. We can see from the Strava API that the activities endpoint has query parameters page &amp; per_page listed above. This might be simple for most to understand, but I made the mistake of thinking of "page" as "number of pages" when above it is defined as "page number" in the sense that the pages are indexed. Each page is given an "id" 1,2,3,4..... each page can at max hold 200 items or activities. The defaults are set to pull 30 items from page 1. How did we find the 200 max? - Answer in the docs:</span>
+<span id="cb19-364"><a href="#cb19-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-365"><a href="#cb19-365" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Strava%20Pagination.png)</span></span>
+<span id="cb19-366"><a href="#cb19-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-367"><a href="#cb19-367" aria-hidden="true" tabindex="-1"></a><span class="fu">### Rate Limits</span></span>
+<span id="cb19-368"><a href="#cb19-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-369"><a href="#cb19-369" aria-hidden="true" tabindex="-1"></a>In my case rate limits are not as big a concern as I will be the sole user of my application. It is highly unlikely I will exceed either of the limits. We can find the two types of "rate limits" that Strava maintains. The value of <span class="in">`X-RateLimit-Limit`</span> is "200,2000" this is read as: "200 requests every 15 minutes, 2000 daily requests" we are dependent upon Strava's documentation for this information which is referred to as the "overall rate limit". Additionally, The value of <span class="in">`X-ReadRateLimit-Limit`</span> is "100,1000" this is read as: "100 requests every 15 minutes, 1000 daily requests" this is referred to as "read rate limit". Which one do we use?</span>
+<span id="cb19-370"><a href="#cb19-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-371"><a href="#cb19-371" aria-hidden="true" tabindex="-1"></a>This is another example of where we are really dependent upon "good/detailed" API documentation. The distinction between "overall rate limit" &amp; "read rate limit" is obscure. I did not find it explicitly detailed in the documentation and I believe other users found the same issues. After this question was posted in the Strava forums the answer was published by Strava. They detail that the type of activity is a consideration in the rate limits:</span>
+<span id="cb19-372"><a href="#cb19-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-373"><a href="#cb19-373" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Rate%20Limits%20Explainations-01.png)</span>{width="671"}</span>
+<span id="cb19-374"><a href="#cb19-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-375"><a href="#cb19-375" aria-hidden="true" tabindex="-1"></a>I know that my goal will only employ the use of the HTTP GET requests so this answers my question and I will use <span class="in">`X-RateLimit-Limit`</span> &amp; <span class="in">`X-RateLimit-Usage`</span> for my project. Given the above considerations of pagination and rate limits, we know at max we can get 200 activities per page but right now the request is only pulling one page at a time. I have \~600 activities I would like to gather data on. So we have two tasks:</span>
+<span id="cb19-376"><a href="#cb19-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-377"><a href="#cb19-377" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Using Iteration to get around the Pagination problem:</span>
+<span id="cb19-378"><a href="#cb19-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="co">[</span><span class="ot">req_perform_iterative()</span><span class="co">](https://httr2.r-lib.org/reference/req_perform_iterative.html)</span> - I am using this to perform multiple requests to the API iteratively:</span>
+<span id="cb19-380"><a href="#cb19-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-381"><a href="#cb19-381" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span>I pass my <span class="in">`req`</span> request from above as one of the arguments.</span>
+<span id="cb19-382"><a href="#cb19-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-383"><a href="#cb19-383" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span><span class="in">`next_req()`</span> this argument is a function that allows me to define how I want to handle the next request. In this case I am going to pass another function into this argument <span class="in">`iterate_with_offset()`</span>.</span>
+<span id="cb19-384"><a href="#cb19-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-385"><a href="#cb19-385" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span><span class="in">`progress`</span> - added a progress bar because its pretty cool!</span>
+<span id="cb19-386"><a href="#cb19-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-387"><a href="#cb19-387" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="co">[</span><span class="ot">iterate_with_offset()</span><span class="co">](https://httr2.r-lib.org/reference/iterate_with_offset.html)</span> - With this function I can adjust the query params from my original request. In this case I am targeting the page parameter. The key to this function is the callback function <span class="in">`is_complete`</span> that is nested inside.</span>
+<span id="cb19-388"><a href="#cb19-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-389"><a href="#cb19-389" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span><span class="in">`is_complete`</span> - Evaluates to either TRUE or FALSE. When the <span class="in">`resp`</span> object is returned in each iteration this function looks at the length of the body of the object. When length is == 0 that means there are no more activities to pull; <span class="in">`is_complete`</span> would return TRUE and the <span class="in">`resp_complete`</span> argument will stop the loop (Note: the loop is stopped on the first page to return 0 so we do receive one empty page but it will not affect the output).</span>
+<span id="cb19-390"><a href="#cb19-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-391"><a href="#cb19-391" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Set parameters for total requests:</span>
+<span id="cb19-392"><a href="#cb19-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-393"><a href="#cb19-393" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>This is not as serious in my case because I am not creating a package and I have no users. but regardless <span class="co">[</span><span class="ot">req_perform_iterative()</span><span class="co">](https://httr2.r-lib.org/reference/req_perform_iterative.html)</span> -<span class="sc">\&gt;</span> <span class="in">`max_reqs`</span> allows me to plug in my current usage rate to be positive that I never eclipse the 15 minute request limit. <span class="co">[</span><span class="ot">Ratelimit()</span><span class="co">](https://github.com/fawda123/rStrava/blob/master/R/ratelimit.R)</span> comes from <span class="co">[</span><span class="ot">rStrava</span><span class="co">](https://github.com/fawda123/rStrava/blob/master/R/ratelimit.R)</span> I am including it here in the context of rate limits as an example how to handle them.</span>
+<span id="cb19-394"><a href="#cb19-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-395"><a href="#cb19-395" aria-hidden="true" tabindex="-1"></a>That's it, below is the complete modified request. that I do not have to re-run everything I will call the basic request using R's source function:</span>
+<span id="cb19-396"><a href="#cb19-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-397"><a href="#cb19-397" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb19-398"><a href="#cb19-398" aria-hidden="true" tabindex="-1"></a><span class="in">#Callback function that with logical response:</span></span>
+<span id="cb19-399"><a href="#cb19-399" aria-hidden="true" tabindex="-1"></a><span class="in">is_complete &lt;- function(resp) {</span></span>
+<span id="cb19-400"><a href="#cb19-400" aria-hidden="true" tabindex="-1"></a><span class="in">  length(resp_body_json(resp)) == 0</span></span>
+<span id="cb19-401"><a href="#cb19-401" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb19-402"><a href="#cb19-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-403"><a href="#cb19-403" aria-hidden="true" tabindex="-1"></a><span class="in">ratelimit &lt;- function(req){</span></span>
+<span id="cb19-404"><a href="#cb19-404" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb19-405"><a href="#cb19-405" aria-hidden="true" tabindex="-1"></a><span class="in">    limit &lt;- as.integer(strsplit(req$headers$`x-ratelimit-limit`, ",")[[1]])</span></span>
+<span id="cb19-406"><a href="#cb19-406" aria-hidden="true" tabindex="-1"></a><span class="in">    usage &lt;- as.integer(strsplit(req$headers$`x-ratelimit-usage`, ",")[[1]])</span></span>
+<span id="cb19-407"><a href="#cb19-407" aria-hidden="true" tabindex="-1"></a><span class="in">    usage_left &lt;- limit - usage</span></span>
+<span id="cb19-408"><a href="#cb19-408" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb19-409"><a href="#cb19-409" aria-hidden="true" tabindex="-1"></a><span class="in">#performs all three calculations above but returns only the last calculation when the function is used. </span></span>
+<span id="cb19-410"><a href="#cb19-410" aria-hidden="true" tabindex="-1"></a><span class="in">    return(usage_left)</span></span>
+<span id="cb19-411"><a href="#cb19-411" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb19-412"><a href="#cb19-412" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb19-413"><a href="#cb19-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-414"><a href="#cb19-414" aria-hidden="true" tabindex="-1"></a><span class="in">#Below is the wrapped iterative request with all of our functions and reqs placed inside:</span></span>
+<span id="cb19-415"><a href="#cb19-415" aria-hidden="true" tabindex="-1"></a><span class="in">resps &lt;- req_perform_iterative(</span></span>
+<span id="cb19-416"><a href="#cb19-416" aria-hidden="true" tabindex="-1"></a><span class="in">  req,</span></span>
+<span id="cb19-417"><a href="#cb19-417" aria-hidden="true" tabindex="-1"></a><span class="in">  next_req = iterate_with_offset(start = 1,"page", resp_complete = is_complete),</span></span>
+<span id="cb19-418"><a href="#cb19-418" aria-hidden="true" tabindex="-1"></a><span class="in">  max_reqs = ratelimit(resp) %&gt;% .[1],</span></span>
+<span id="cb19-419"><a href="#cb19-419" aria-hidden="true" tabindex="-1"></a><span class="in">  progress = TRUE</span></span>
+<span id="cb19-420"><a href="#cb19-420" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
 <span id="cb19-421"><a href="#cb19-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-422"><a href="#cb19-422" aria-hidden="true" tabindex="-1"></a><span class="in">#Displaying the outcome:</span></span>
-<span id="cb19-423"><a href="#cb19-423" aria-hidden="true" tabindex="-1"></a><span class="in">resps</span></span>
-<span id="cb19-424"><a href="#cb19-424" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-425"><a href="#cb19-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-426"><a href="#cb19-426" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Iterated%20Responses.png)</span></span>
+<span id="cb19-422"><a href="#cb19-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-423"><a href="#cb19-423" aria-hidden="true" tabindex="-1"></a><span class="in">#Displaying the outcome:</span></span>
+<span id="cb19-424"><a href="#cb19-424" aria-hidden="true" tabindex="-1"></a><span class="in">resps</span></span>
+<span id="cb19-425"><a href="#cb19-425" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-426"><a href="#cb19-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-427"><a href="#cb19-427" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Iterated%20Responses.png)</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
