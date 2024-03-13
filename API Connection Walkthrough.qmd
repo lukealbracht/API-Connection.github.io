@@ -20,7 +20,7 @@ editor_options:
 
 if (!require(pacman)) install.packages("pacman")
 
-  p_load(tidyverse,DiagrammeR,networkD3,gt,httr2,jsonlite,conflicted)
+  p_load(tidyverse,DiagrammeR,networkD3,gt,httr2,jsonlite,conflicted,httpuv)
   
 #Conflicted package set to prefer dplyr over others:
   conflicted::conflicts_prefer(dplyr::filter)
@@ -405,6 +405,7 @@ resps <- req_perform_iterative(
   max_reqs = ratelimit(resp) %>% .[1],
   progress = TRUE
 )
+
 
 #Displaying the outcome:
 resps
