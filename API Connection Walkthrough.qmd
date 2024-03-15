@@ -192,7 +192,8 @@ This document serves as a walk through for connecting to API's through R using t
 
 -   URIs \| URLs - Uniform resource identifier also known as uniform resource locator specifies the address of the resource.
 
-    -   Base URL - This can be found in the API documentation: ![Base URL](Images/Strava%20Base%20URL.png){width="389"}
+    -   Base URL - This can be found in the API documentation: 
+	![Base URL](Images/Strava%20Base%20URL.png){width="389"}
 
 -   Data formats - The next consideration we have to make is the structure of the data that the API contains. There are two common formats; JSON (JavaScript Object Notation) and XML (extensible Markup Language). Strava's structure is JSON so we are going to recruit the [jsonlite](https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html "jsonlite vignettes") package to help parse and map the API's data into R objects.
 
