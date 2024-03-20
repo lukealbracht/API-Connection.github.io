@@ -2,7 +2,7 @@
 title: "Lucas Albracht"
 about:
   template: jolla
-  image: Jesse & Luke.png
+  image: images/Jesse & Luke.png
   links:
     - icon: linkedin
       text: linkedin
@@ -13,13 +13,9 @@ about:
 ---
 
 ::: {#hero-heading}
-Hello, my name is Luke, I am a data analytics enthusiast and supply chain strategist. My foray into the data analytics world is anything but traditional. but I am happy to be here. I draw inspiration from those around me and 
+Hello, I'm Luke Albracht, a dedicated data analytics enthusiast and supply chain strategist. My journey into the realm of data analytics commenced upon graduating from Baylor University with a degree in Supply Chain Management. Encountering real-world data challenges in my professional endeavors, I proactively enhanced my academic foundation by mastering data tools such as R and Alteryx. With over five years of hands-on experience in data extraction, analysis, and supply chain strategy, I deeply understand the pivotal role of data in driving team success. I've created this site to serve as a collection of projects to build on as I learn and develop in the area of data analytics.
 
-with five years of experience in data extraction, analysis, and supply chain. Demonstrated proficiency leveraging programming tools such as R and Alteryx to augment my work.
-
-## Education
-
-Baylor University, Waco \| Waco, TX B.A in Supply Chain Management \| Aug 2013 - Dec 2017
+Outside of work, I enjoy riding my bike, playing video games, and spending time with my lovely wife, Jesse.
 
 ## Experience
 
@@ -30,4 +26,8 @@ PrimeSource Building Products, Inc. - Irving TX \| Global Sourcing Manager/Data 
 PrimeSource Building Products, Inc. - Irving TX \| Buyer/Team Data (SME) \| April 2021 - May 2022
 
 PrimeSource Building Products, Inc. - Irving TX \| Sourcing Analyst \| Aug 2018 - April 2021
+
+## Education
+
+Baylor University, Waco \| Waco, TX B.A in Supply Chain Management \| Aug 2013 - Dec 2017
 :::
