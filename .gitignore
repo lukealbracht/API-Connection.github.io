@@ -3,5 +3,5 @@
 .RData
 .Ruserdata
 .Renviron
-
 /.quarto/
+.httr-oauth

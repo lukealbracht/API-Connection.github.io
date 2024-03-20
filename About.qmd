@@ -1,0 +1,35 @@
+---
+title: "Lucas Albracht"
+about:
+  template: jolla
+  image: Profile Picture.png
+  links:
+    - icon: linkedin
+      text: linkedin
+      href: www.linkedin.com/in/lucasalbracht
+    - icon: github
+      text: Github
+      href: https://github.com/lukealbracht
+---
+
+### This content appears above the formatted about page content.
+
+:::{#hero-heading}
+
+Finley Malloc is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Finley enjoys spending time unicycling and playing with her pet iguana.
+
+## Education
+
+Baylor University, Waco | Waco, TX
+B.A in Supply Chain Management | Aug 2013 - Dec 2017
+
+
+## Experience
+
+Wengo Analytics | Head Data Scientist | April 2018 - present
+
+GeoScynce | Chief Analyst | Sept 2012 - April 2018
+
+:::
+
+### This content appears below the formatted about page content.

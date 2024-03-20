@@ -6,11 +6,16 @@ description: "This document walks through how to connect to Strava's API."
 author: "Lucas Albracht"
 date: today
 date-meta: short
-toc: true
-code-fold: true
-code-tools: true
-editor_options: 
-  chunk_output_type: inline
+
+format:
+  html:
+    theme: superhero
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-tools: true
+    editor_options: 
+    chunk_output_type: inline
 ---
 
 ## Libraries
@@ -51,6 +56,8 @@ This document serves as a walk through for connecting to API's through R using t
 
 #### Authorization flowchart
 
+It is helpful to identify the type of Oauth flow that is utilized so that you know what to incorporate in your GET request.
+
 1.  **Client credentials flow** - I believe that Strava is using this type of authorization. Their docs state they allow external apps to request user data, and users can grant and revoke API access on a "per-application" basis. With this method authentication is done using a client ID and secret. The returned access token grants the client access to specific, predefined scopes.
 
     -   **Access Token:** A token that represents the authorization granted to the client.
@@ -61,6 +68,9 @@ This document serves as a walk through for connecting to API's through R using t
     #|label: OAuth-flowchart
     #|fig-cap-location: top
     #|fig-cap: OAuth visualization
+
+    #I am testing out the DiagrammeR package below to visualize a basic Oauth flow.
+
 
     node_ht <-  2
     node_w <-  1
@@ -192,8 +202,9 @@ This document serves as a walk through for connecting to API's through R using t
 
 -   URIs \| URLs - Uniform resource identifier also known as uniform resource locator specifies the address of the resource.
 
-    -   Base URL - This can be found in the API documentation: 
-	![Base URL](Images/Strava%20Base%20URL.png){width="389"}
+    -   Base URL - This can be found in the API documentation:
+
+    ![Base URL](Images/Strava%20Base%20URL.png){width="389"}
 
 -   Data formats - The next consideration we have to make is the structure of the data that the API contains. There are two common formats; JSON (JavaScript Object Notation) and XML (extensible Markup Language). Strava's structure is JSON so we are going to recruit the [jsonlite](https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html "jsonlite vignettes") package to help parse and map the API's data into R objects.
 
@@ -241,7 +252,7 @@ Creating our request & using [req_dry_run()](https://httr2.r-lib.org/reference/r
 # Path - (/api/v3) 
 # HTTP protocol version - HTTP/1.1
 req <- request(base_url)
-req %>% req_headers(Name = "Luke Albracht") %>% req_dry_run() 
+req %>% req_headers(Name = "Luke Albracht") %>% req_dry_run()
 ```
 
 ### Client Creation
@@ -255,17 +266,18 @@ strava_client <- oauth_client(
     secret = app_secret,
     name = app_name,
     token_url = token_url)
+strava_client
 ```
 
 ### OAuth code flow
 
 R continues to throw an error over the code below. I could not figure out the purpose of this step when we just ended up using [req_oauth_auth_code()](https://httr2.r-lib.org/reference/req_oauth_auth_code.html) below in our GET request. The way that I understand this, since we already have our token this step took us to the auth_url. Seems like it might be an issue specific to the API or user error. Regardless, I am keeping this step as a part of the process.
 
-```{r}
-req_dry_run(oauth_client_req_auth(req,strava_client))
+```{r, eval=FALSE}
+req_dry_run(oauth_client_req_auth(req,strava_client),redact_headers = TRUE)
 ```
 
-![](images/Authentication%20Steps%20API.png)
+![Authentication Message example](Images/Authentication%20Steps%20API.png){width="464"}
 
 ### Request
 
@@ -277,29 +289,33 @@ To do this in httr2 I took the "req" object created above and piped it through t
 
 -   [req_oauth_auth_code()](https://httr2.r-lib.org/reference/req_oauth_auth_code.html) - Finally we used this function for our authorization code flow as it covers what is needed for our application.
 
+-   [req_perform()](https://httr2.r-lib.org/reference/req_perform.html) - This function is used to perform the get request. Once we have created the desired request with all necessary parameters, then we need to pipe that request into this function and store the response.
+
     ![Endpoint Params for URL query](Images/Activities%20Endpoint%20Params.png){width="464"}
 
-    Basic httr2 piped based GET request:
+    Basic httr2 pipe based GET request:
 
-    ```{r, eval=FALSE}
+    ```{r}
     #GET request using everything we have covered so far:
     req <- request(base_url) %>%
       req_url_path_append("activities") %>%
       req_url_query(per_page = 200, page = 1) %>%
       req_oauth_auth_code(client = strava_client,
                           auth_url = auth_url,
-                          scope = "activity:read_all")
+                          scope = "activity:read_all",
+                          cache_disk = TRUE)
 
     #Performing request and returning the HTTP response and storing it:
     resp <- req %>% req_perform()
-
+    #Check the status of our response from the auth server:
+    resp
     #Storing the body of the response as a list of lists:
     strava_json <- resp %>% resp_body_json()
     ```
 
 To re-cap at this point I now have the follow data objects in my environment window:
 
-```{r, eval=FALSE}
+```{r}
 #This function was built to return the Name and Type of object in the enviroment window - I wanted a filtered list of the objects that matter and did not want to include the values/secrets:
 env_obj_classes <- function() {
   # List the objects in your R environment
@@ -326,8 +342,6 @@ env_obj_classes <- function() {
 }
 env_obj_classes() %>% filter(str_detect(Name,"strava|req|resp")) %>% tibble()
 ```
-
-![](Images/Objects.png)
 
 ## Part II \| Request Modification
 
@@ -377,7 +391,7 @@ I know that my goal will only employ the use of the HTTP GET requests so this an
 
 That's it, below is the complete modified request. that I do not have to re-run everything I will call the basic request using R's source function:
 
-```{r, eval=FALSE}
+```{r}
 #Callback function that with logical response:
 is_complete <- function(resp) {
   length(resp_body_json(resp)) == 0
@@ -406,5 +420,3 @@ resps <- req_perform_iterative(
 #Displaying the outcome:
 resps
 ```
-
-![](images/Iterated%20Responses.png)
