@@ -1,21 +1,22 @@
 ---
 title-block-style: default
 title-block-banner: true
-title: "Strava API Connnection Walkthrough"
-description: "This document walks through how to connect to Strava's API."
-author: "Lucas Albracht"
+title: "Plotting sine waves in ggplot & plotly"
+description: "Testing out ggplot and plotly with trig waves"
+author:
+  - name: Luke Albracht
 date: today
 date-meta: short
-
-format:
+format: 
   html:
-    theme: superhero
-    css: styles.css
     toc: true
-    code-fold: true
-    code-tools: true
-    editor_options: 
-    chunk_output_type: inline
+    toc_float: true
+
+image: images/ggplot2.png
+categories:
+  - ggplot
+  - plotly
+  - Data vizualization
 ---
 
 ## Libraries

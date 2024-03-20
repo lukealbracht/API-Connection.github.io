@@ -3,12 +3,12 @@ project:
 
 website:
   title: "Data vizualization projects with R|Luke Albracht"
-  description: ""
   search: true
   back-to-top-navigation: true
   sidebar:
     style: "docked"
     search: true
+    toc: true
     contents:
       - About.qmd
       - API Connection Walkthrough.qmd
@@ -16,11 +16,7 @@ website:
 
 format:
   html:
-    toc: true
-    theme:
-      light: superhero
-      dark: darkly
+    theme: superhero
       
-
 editor: visual
 

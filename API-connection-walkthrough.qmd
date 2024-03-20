@@ -3,19 +3,21 @@ title-block-style: default
 title-block-banner: true
 title: "Strava API Connnection Walkthrough"
 description: "This document walks through how to connect to Strava's API."
-author: "Lucas Albracht"
+author:
+  - name: Luke Albracht
 date: today
 date-meta: short
-
-format:
+format: 
   html:
-    theme: superhero
-    css: styles.css
     toc: true
-    code-fold: true
-    code-tools: true
-    editor_options: 
-    chunk_output_type: inline
+    toc_float: true
+
+image: images/Strava Main Logo.jpeg
+categories:
+  - APIS
+  - Data Wrangling
+  - OAuth
+  - HTTP Requests
 ---
 
 ## Libraries

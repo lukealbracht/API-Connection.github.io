@@ -2,7 +2,7 @@
 title: "Lucas Albracht"
 about:
   template: jolla
-  image: Profile Picture.png
+  image: Jesse & Luke.png
   links:
     - icon: linkedin
       text: linkedin
@@ -12,24 +12,22 @@ about:
       href: https://github.com/lukealbracht
 ---
 
-### This content appears above the formatted about page content.
+::: {#hero-heading}
+Hello, my name is Luke, I am a data analytics enthusiast and supply chain strategist. My foray into the data analytics world is anything but traditional. but I am happy to be here. I draw inspiration from those around me and 
 
-:::{#hero-heading}
-
-Finley Malloc is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Finley enjoys spending time unicycling and playing with her pet iguana.
+with five years of experience in data extraction, analysis, and supply chain. Demonstrated proficiency leveraging programming tools such as R and Alteryx to augment my work.
 
 ## Education
 
-Baylor University, Waco | Waco, TX
-B.A in Supply Chain Management | Aug 2013 - Dec 2017
-
+Baylor University, Waco \| Waco, TX B.A in Supply Chain Management \| Aug 2013 - Dec 2017
 
 ## Experience
 
-Wengo Analytics | Head Data Scientist | April 2018 - present
+Alteryx Designer Core Certification \| Issued January 2024
 
-GeoScynce | Chief Analyst | Sept 2012 - April 2018
+PrimeSource Building Products, Inc. - Irving TX \| Global Sourcing Manager/Data (SME)\| May 2022 - Dec 2023
 
+PrimeSource Building Products, Inc. - Irving TX \| Buyer/Team Data (SME) \| April 2021 - May 2022
+
+PrimeSource Building Products, Inc. - Irving TX \| Sourcing Analyst \| Aug 2018 - April 2021
 :::
-
-### This content appears below the formatted about page content.
