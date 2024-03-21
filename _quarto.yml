@@ -11,12 +11,12 @@ website:
     toc: true
     contents:
       - About.qmd
-      - API-Connection-Walkthrough.qmd
+      - API-connection-walkthrough.qmd
       - Plotting-sine-waves.qmd
 
 format:
   html:
-    theme: superhero
+    theme: cyborg
       
 editor: visual
 

@@ -1,5 +1,6 @@
 ---
-title: "Lucas Albracht"
+title: "About"
+subtitle: "Luke Albracht"
 about:
   template: jolla
   image: images/Jesse & Luke.png
