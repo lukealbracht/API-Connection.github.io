@@ -5,7 +5,7 @@ website:
   title: "Data vizualization projects with R|Luke Albracht"
   search: true
   back-to-top-navigation: true
-  sidebar:
+  navbar:
     style: "docked"
     search: true
     toc: true
@@ -14,9 +14,17 @@ website:
       - API-connection-walkthrough.qmd
       - Plotting-sine-waves.qmd
 
-format:
+title-block-banner: "#27445C"
+format: 
   html:
-    theme: cyborg
-      
-editor: visual
+    smooth-scroll: true
+    fontcolor: black
+    toc: true
+    toc-location: left
+    toc-title: Summary
+    toc-depth: 3
+css: styles.css
+theme:
+  light: [cosmo, assets/scripts/lightstyle.scss]
+  dark: [cosmo, assets/scripts/darkstyle.scss]
 
