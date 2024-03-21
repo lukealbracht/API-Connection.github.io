@@ -1,1 +1,1 @@
-Sitemap: https://lukealbracht.github.io/API-Connection.github.io/sitemap.xml
+Sitemap: https://lukealbracht.github.io/Data-proj-portfolio.github.io/sitemap.xml

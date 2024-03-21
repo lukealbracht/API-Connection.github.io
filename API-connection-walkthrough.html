@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Luke Albracht">
+<meta name="dcterms.date" content="short">
+<meta name="description" content="This document walks through how to connect to Strava’s API.">
+
+<title>Data vizualization projects with R|Luke Albracht - Strava API Connnection Walkthrough</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/viz-1.8.2/viz.js"></script>
+
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+
+<script src="site_libs/grViz-binding-1.0.11/grViz.js"></script>
+
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./API-connection-walkthrough.html">Strava API Connnection Walkthrough</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Strava API Connnection Walkthrough</h1>
+                  <div>
+        <div class="description">
+          This document walks through how to connect to Strava’s API.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">APIS</div>
+                <div class="quarto-category">Data Wrangling</div>
+                <div class="quarto-category">OAuth</div>
+                <div class="quarto-category">HTTP Requests</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Luke Albracht </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 21, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data vizualization projects with R|Luke Albracht</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./About.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./API-connection-walkthrough.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Strava API Connnection Walkthrough</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Plotting-sine-waves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting sine waves in ggplot &amp; plotly</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link active" data-scroll-target="#libraries">Libraries</a></li>
+  <li><a href="#api-connection-steps-overview" id="toc-api-connection-steps-overview" class="nav-link" data-scroll-target="#api-connection-steps-overview">API Connection steps | Overview</a>
+  <ul class="collapse">
+  <li><a href="#disclaimer" id="toc-disclaimer" class="nav-link" data-scroll-target="#disclaimer">Disclaimer</a></li>
+  <li><a href="#docs" id="toc-docs" class="nav-link" data-scroll-target="#docs">Docs</a></li>
+  <li><a href="#oauth2.0" id="toc-oauth2.0" class="nav-link" data-scroll-target="#oauth2.0">OAuth2.0</a></li>
+  <li><a href="#http" id="toc-http" class="nav-link" data-scroll-target="#http">HTTP</a></li>
+  <li><a href="#api-application" id="toc-api-application" class="nav-link" data-scroll-target="#api-application">API Application</a></li>
+  <li><a href="#get-request-httr2" id="toc-get-request-httr2" class="nav-link" data-scroll-target="#get-request-httr2">GET Request | httr2</a></li>
+  <li><a href="#endpoint-urls" id="toc-endpoint-urls" class="nav-link" data-scroll-target="#endpoint-urls">Endpoint URLs</a></li>
+  <li><a href="#scopes" id="toc-scopes" class="nav-link" data-scroll-target="#scopes">Scopes</a></li>
+  <li><a href="#client-creation" id="toc-client-creation" class="nav-link" data-scroll-target="#client-creation">Client Creation</a></li>
+  <li><a href="#oauth-code-flow" id="toc-oauth-code-flow" class="nav-link" data-scroll-target="#oauth-code-flow">OAuth code flow</a></li>
+  <li><a href="#request" id="toc-request" class="nav-link" data-scroll-target="#request">Request</a></li>
+  </ul></li>
+  <li><a href="#part-ii-request-modification" id="toc-part-ii-request-modification" class="nav-link" data-scroll-target="#part-ii-request-modification">Part II | Request Modification</a>
+  <ul class="collapse">
+  <li><a href="#pagination" id="toc-pagination" class="nav-link" data-scroll-target="#pagination">Pagination</a></li>
+  <li><a href="#rate-limits" id="toc-rate-limits" class="nav-link" data-scroll-target="#rate-limits">Rate Limits</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="libraries" class="level2">
+<h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Install and load the required packages if not already installed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(pacman)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">p_load</span>(tidyverse,DiagrammeR,gt,httr2,jsonlite,conflicted,httpuv,igraph,networkD3)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Conflicted package set to prefer dplyr over others:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  conflicted<span class="sc">::</span><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer dplyr::filter over any other package.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  conflicted<span class="sc">::</span><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>data_frame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer dplyr::data_frame over any other package.</code></pre>
+</div>
+</div>
+</section>
+<section id="api-connection-steps-overview" class="level2">
+<h2 class="anchored" data-anchor-id="api-connection-steps-overview">API Connection steps | Overview</h2>
+<section id="disclaimer" class="level3">
+<h3 class="anchored" data-anchor-id="disclaimer">Disclaimer</h3>
+<p>This document serves as a walk through for connecting to API’s through R using the httr2 package. In this instance I will be attempting to connect to Strava’s API. I do not own this information (aside from my personal Strava data) and this is simply a collection of notes to aid in my own learning process. I am aware of the package <a href="https://github.com/fawda123/rStrava">rStrava</a> and I drew from their package for inspiration here. I explicitly used their <code>ratelimit</code> function below and I have properly credited them for that. My secondary goal with this document is to familiarize myself with <a href="https://httr2.r-lib.org/">httr2</a> which is why I have not opted to use existing packages, and instead experiment with this package.</p>
+</section>
+<section id="docs" class="level3">
+<h3 class="anchored" data-anchor-id="docs">Docs</h3>
+<ul>
+<li>Read the documentation - <a href="https://developers.strava.com/docs/" class="uri" title="Strava API V3 Documentation">Strava API V3 Documentation</a></li>
+<li>This walk through is intended to summarize what I have learned and make the pain points more digestible. However, I cannot cover everything, with that in mind reading the documentation is still the best way to familiarize yourself with this process.</li>
+</ul>
+</section>
+<section id="oauth2.0" class="level3">
+<h3 class="anchored" data-anchor-id="oauth2.0">OAuth2.0</h3>
+<ol type="1">
+<li><p><strong>Authentication</strong> - Strava uses OAuth 2.0 as its method of authentication. Below is how I break this down in my mind:</p>
+<ul>
+<li><p>OAuth is an authorization framework that allows third party applications to access data on behalf of a user. These are the parties involved in this transaction:</p>
+<ul>
+<li><p>Resource Owner: The entity that owns the resource and is capable of granting access to it. Typically, this is the end-user.</p></li>
+<li><p>Client: The application requesting access to the resource on behalf of the resource owner. This is often a third-party application.</p></li>
+<li><p>Authorization Server: The server that authenticates the resource owner and issues access tokens after getting proper authorization.</p></li>
+<li><p>Resource Server: The server hosting the protected resources, capable of accepting and responding to protected resource requests using access tokens</p></li>
+</ul></li>
+</ul></li>
+</ol>
+<section id="authorization-flowchart" class="level4">
+<h4 class="anchored" data-anchor-id="authorization-flowchart">Authorization flowchart</h4>
+<p>It is helpful to identify the type of Oauth flow that is utilized so that you know what to incorporate in your GET request.</p>
+<ol type="1">
+<li><p><strong>Client credentials flow</strong> - I believe that Strava is using this type of authorization. Their docs state they allow external apps to request user data, and users can grant and revoke API access on a “per-application” basis. With this method authentication is done using a client ID and secret. The returned access token grants the client access to specific, predefined scopes.</p>
+<ul>
+<li><strong>Access Token:</strong> A token that represents the authorization granted to the client.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|format: html</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#|code-fold: true</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#|label: OAuth-flowchart</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#|fig-cap-location: top</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#|fig-cap: OAuth visualization</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#I am testing out the DiagrammeR package below to visualize a basic Oauth flow.</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>node_ht <span class="ot">&lt;-</span>  <span class="dv">2</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>node_w <span class="ot">&lt;-</span>  <span class="dv">1</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>Diagram <span class="ot">&lt;-</span> <span class="fu">create_graph</span>(<span class="at">directed =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">attr_theme =</span> <span class="st">"lr"</span>) <span class="sc">%&gt;%</span> <span class="co">#theme is set "Left to Right"</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># add_node() &amp; node_aes() are all geared </span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># toward formatting node attributes: color, height, shape etc. ----</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_node</span>(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">node_aes =</span> <span class="fu">node_aes</span>(</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="st">"rectangle"</span>,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">fillcolor =</span> <span class="st">"#007AC1"</span>,</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">fontcolor =</span> <span class="st">"White"</span>,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">width =</span> <span class="dv">2</span>,</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">height =</span> <span class="dv">5</span>,</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"B"</span>,</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Application</span><span class="sc">\n</span><span class="st">(Client)</span><span class="sc">\n</span><span class="st">(My Strava App)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_node</span>(</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">node_aes =</span> <span class="fu">node_aes</span>(</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="st">"rectangle"</span>,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">fillcolor =</span> <span class="st">"#FDBB30"</span>,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">fontcolor =</span> <span class="st">"White"</span>,</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">width =</span> node_w,</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">height =</span> node_ht,</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">5</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"A"</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"User</span><span class="sc">\n</span><span class="st">(My Strava</span><span class="sc">\n</span><span class="st">Profile)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_node</span>(</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">node_aes =</span> <span class="fu">node_aes</span>(</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="st">"rectangle"</span>,</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">fillcolor =</span> <span class="st">"mediumvioletred"</span>,</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">fontcolor =</span> <span class="st">"White"</span>,</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">width =</span> node_w,</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">height =</span> node_ht,</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"A"</span>,</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Authorization</span><span class="sc">\n</span><span class="st">Server"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_node</span>(</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">node_aes =</span> <span class="fu">node_aes</span>(</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="st">"rectangle"</span>,</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>      <span class="at">fillcolor =</span> <span class="st">"Orangered"</span>,</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>      <span class="at">fontcolor =</span> <span class="st">"White"</span>,</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>      <span class="at">width =</span> node_w,</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>      <span class="at">height =</span> node_ht,</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"A"</span>,</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Resource</span><span class="sc">\n</span><span class="st"> Server"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Edge creation and formatting - "edges" are the arrows that connect our nodes.</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="co"># Edges show the flow of info through our charts. Due to the exchange in our data we will see 6 edges:</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_edge</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">2</span>,<span class="at">edge_aes =</span> <span class="fu">edge_aes</span>(</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"1.)Authorization is requested from the</span><span class="sc">\n</span><span class="st"> app to the user/profile/data owner."</span>,</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontsize =</span> <span class="dv">12</span>,</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">penwidth =</span> <span class="dv">5</span>,</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Orange"</span>,</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrowsize =</span> .<span class="dv">5</span>,</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">tailport =</span> <span class="st">"n"</span>,</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">headport =</span> <span class="st">"n"</span>,</span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">dir =</span> <span class="st">"forward"</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_edge</span>(<span class="at">from =</span> <span class="dv">2</span>, <span class="at">to =</span> <span class="dv">1</span>,<span class="at">edge_aes =</span> <span class="fu">edge_aes</span>(</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"2.)User grants authorization to the app."</span>,</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontsize =</span> <span class="dv">12</span>,</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">penwidth =</span> <span class="dv">5</span>,</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Orange"</span>,</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrowsize =</span> .<span class="dv">5</span>,</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">dir =</span> <span class="st">"forward"</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_edge</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">3</span>,<span class="at">edge_aes =</span> <span class="fu">edge_aes</span>(</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"3.)App sends the authorization grant</span><span class="sc">\n</span><span class="st">to the authorization server"</span>,</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontsize =</span> <span class="dv">12</span>,</span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">penwidth =</span> <span class="dv">5</span>,</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Orange"</span>,</span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrowsize =</span> .<span class="dv">5</span>,</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">headport =</span> <span class="st">"n"</span>,</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">dir =</span> <span class="st">"forward"</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_edge</span>(<span class="at">from =</span> <span class="dv">3</span>, <span class="at">to =</span> <span class="dv">1</span>,<span class="at">edge_aes =</span> <span class="fu">edge_aes</span>(</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"4.)Access token is granted to the app."</span>,</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontsize =</span> <span class="dv">12</span>,</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>    <span class="at">penwidth =</span> <span class="dv">5</span>,</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Orange"</span>,</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrowsize =</span> .<span class="dv">5</span>,</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">tailport =</span> <span class="st">"w"</span>,</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">dir =</span> <span class="st">"forward"</span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_edge</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">4</span>,<span class="at">edge_aes =</span> <span class="fu">edge_aes</span>(</span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"5.)Access token is sent from app</span><span class="sc">\n</span><span class="st">via HTTP|GET request."</span>,</span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontsize =</span> <span class="dv">12</span>,</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>    <span class="at">penwidth =</span> <span class="dv">5</span>,</span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Orange"</span>,</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrowsize =</span> .<span class="dv">5</span>,</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>    <span class="at">dir =</span> <span class="st">"forward"</span>,</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">headport =</span> <span class="st">"w"</span></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_edge</span>(<span class="at">from =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="dv">1</span>,<span class="at">edge_aes =</span> <span class="fu">edge_aes</span>(</span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"6.)Access to resource data</span><span class="sc">\n</span><span class="st">is granted to the application."</span>,</span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontsize =</span> <span class="dv">12</span>,</span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>    <span class="at">penwidth =</span> <span class="dv">5</span>,</span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Orange"</span>,</span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>    <span class="at">tailport =</span> <span class="st">"s"</span>,</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>    <span class="at">headport =</span> <span class="st">"s"</span>,</span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">dir =</span> <span class="st">"forward"</span>))</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the graph ----</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="fu">render_graph</span>(Diagram)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item" id="htmlwidget-77fad6dd048e6239c23a" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-77fad6dd048e6239c23a">{"x":{"diagram":"graph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Application\n(Client)\n(My Strava App)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#007AC1\", fontcolor = \"White\", height = \"5\", width = \"2\"] \n  \"2\" [label = \"User\n(My Strava\nProfile)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#FDBB30\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"3\" [label = \"Authorization\nServer\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#C71585\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"4\" [label = \"Resource\n Server\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"Orangered\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n\"1\"--\"2\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"1.)Authorization is requested from the\n app to the user/profile/data owner.\", dir = \"forward\", headport = \"n\", tailport = \"n\"] \n\"2\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"2.)User grants authorization to the app.\", dir = \"forward\", dir = \"forward\", dir = \"forward\"] \n\"1\"--\"3\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"3.)App sends the authorization grant\nto the authorization server\", dir = \"forward\", headport = \"n\", headport = \"n\"] \n\"3\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"4.)Access token is granted to the app.\", dir = \"forward\", dir = \"forward\", tailport = \"w\"] \n\"1\"--\"4\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"5.)Access token is sent from app\nvia HTTP|GET request.\", dir = \"forward\", headport = \"w\", headport = \"w\"] \n\"4\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"6.)Access to resource data\nis granted to the application.\", dir = \"forward\", headport = \"s\", tailport = \"s\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div></li>
+</ol>
+</section>
+</section>
+<section id="http" class="level3">
+<h3 class="anchored" data-anchor-id="http">HTTP</h3>
+<ol type="1">
+<li><strong>Hyper Text Transfer Protocol</strong> - HTTP serves as the underlying “protocol” or rules/procedures that Strava’s API uses. In the context of connecting to an API in R we need a library that can handle this, which is where the <a href="https://httr2.r-lib.org/" title="httr2 documentation">httr2</a> package comes into play. Below are some of the key concepts of connecting using HTTP</li>
+</ol>
+<ul>
+<li><p>Request | Response model - We mentioned this above and displayed this in our flowchart:</p>
+<ul>
+<li><p>Client - App creator | request maker</p></li>
+<li><p>Server - Resource owner | responds to the request</p></li>
+</ul></li>
+<li><p>HTTP Methods - There are a number of methods, for our purposes the “GET” method is the only one we will use. This method is a request to retrieve data from the server.</p></li>
+<li><p>URIs | URLs - Uniform resource identifier also known as uniform resource locator specifies the address of the resource.</p>
+<ul>
+<li>Base URL - This can be found in the API documentation:</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Strava Base URL.png" class="img-fluid figure-img" width="389"></p>
+<figcaption>Base URL</figcaption>
+</figure>
+</div></li>
+<li><p>Data formats - The next consideration we have to make is the structure of the data that the API contains. There are two common formats; JSON (JavaScript Object Notation) and XML (extensible Markup Language). Strava’s structure is JSON so we are going to recruit the <a href="https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html" title="jsonlite vignettes">jsonlite</a> package to help parse and map the API’s data into R objects.</p></li>
+</ul>
+</section>
+<section id="api-application" class="level3">
+<h3 class="anchored" data-anchor-id="api-application">API Application</h3>
+<p>In this step we are going to put everything together. Using what we know about HTTP requests, OAuth2.0, and the instructions presented in <a href="https://developers.strava.com/docs/" class="uri" title="Strava API V3 Documentation">Strava API V3 Documentation</a> we should have <a href="https://developers.strava.com/docs/getting-started/#account">registered our application</a> and generated our tokens.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2024-02-22 172443.png" class="img-fluid figure-img" width="594"></p>
+<figcaption>Example Strava Creditials</figcaption>
+</figure>
+</div>
+</section>
+<section id="get-request-httr2" class="level3">
+<h3 class="anchored" data-anchor-id="get-request-httr2">GET Request | <a href="https://httr2.r-lib.org/">httr2</a></h3>
+<p>Below I will be leaning on the <a href="https://httr2.r-lib.org/articles/oauth.html">httr2 OAuth vignette</a> and taking notes/learning as I go. This vignette gives a much more in depth description of the OAuth framework and breaks down the httr2 connection process very succinctly.</p>
+<p>For privacy I have added all keys to my .Renviron file. The keys are saved as environment variables to avoid including the creditials inside my code below I am assigning them so that I can use them in the GET request:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>app_name <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_name"</span>) <span class="co"># Chosen by user</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>app_client_id <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_client_id"</span>) <span class="co"># this is assigned by Strava above listed as "Client ID" in the image</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>app_secret <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"app_secret"</span>) <span class="co"># This is assigned by strava as well listed as "Client Secret" above. You need to create an account and app in order to see this.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="endpoint-urls" class="level3">
+<h3 class="anchored" data-anchor-id="endpoint-urls">Endpoint URLs</h3>
+<ul>
+<li><p>Location’s where Strava’s server/servers are hosting the data. They can be found in <a href="https://developers.strava.com/docs/" class="uri" title="Strava API V3 Documentation">Strava API V3 Documentation</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Token URL.png" class="img-fluid figure-img"></p>
+<figcaption>Token URL - https://www.strava.com/oauth/token</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Authorization endpoint.png" class="img-fluid figure-img"></p>
+<figcaption>Authorization URL - https://www.strava.com/oauth/authorize</figcaption>
+</figure>
+</div></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>token_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/oauth/token"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>auth_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/oauth/authorize"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://www.strava.com/api/v3"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="scopes" class="level3">
+<h3 class="anchored" data-anchor-id="scopes">Scopes</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Strava Scopes.png" class="img-fluid figure-img"></p>
+<figcaption>Strava Scopes - These define the applications access controls</figcaption>
+</figure>
+</div>
+<p>Creating our request &amp; using <a href="https://httr2.r-lib.org/reference/req_dry_run.html">req_dry_run()</a> to see what the request entails:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method - GET </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Path - (/api/v3) </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># HTTP protocol version - HTTP/1.1</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(base_url) <span class="sc">%&gt;%</span> <span class="fu">req_cache</span>(<span class="fu">tempdir</span>())</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>req <span class="sc">%&gt;%</span> <span class="fu">req_headers</span>(<span class="at">Name =</span> <span class="st">"Luke Albracht"</span>) <span class="sc">%&gt;%</span> <span class="fu">req_dry_run</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GET /api/v3 HTTP/1.1
+Host: www.strava.com
+User-Agent: httr2/1.0.0 r-curl/5.2.1 libcurl/8.3.0
+Accept: */*
+Accept-Encoding: deflate, gzip
+Name: Luke Albracht</code></pre>
+</div>
+</div>
+</section>
+<section id="client-creation" class="level3">
+<h3 class="anchored" data-anchor-id="client-creation">Client Creation</h3>
+<p>The <a href="https://httr2.r-lib.org/articles/oauth.html">httr2 OAuth vignette</a> starts with client creation which is the first step to API connection. Using the <a href="https://httr2.r-lib.org/reference/oauth_client.html">oauth_client()</a> function. The arguments id, token_url, secret, and name are all elements that we already accumulated. Below I have assigned these to the “strava_client” object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Client creation httr2:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>strava_client <span class="ot">&lt;-</span> <span class="fu">oauth_client</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    app_client_id,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">secret =</span> app_secret,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> app_name,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">token_url =</span> token_url)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>strava_client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;httr2_oauth_client&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>name:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>id:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>secret: &lt;REDACTED&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>token_url: https://www.strava.com/oauth/token</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>auth: oauth_client_req_auth_body</code></pre>
+</div>
+</div>
+</section>
+<section id="oauth-code-flow" class="level3">
+<h3 class="anchored" data-anchor-id="oauth-code-flow">OAuth code flow</h3>
+<p>R continues to throw an error over the code below. I could not figure out the purpose of this step when we just ended up using <a href="https://httr2.r-lib.org/reference/req_oauth_auth_code.html">req_oauth_auth_code()</a> below in our GET request. The way that I understand this, since we already have our token this step took us to the auth_url. Seems like it might be an issue specific to the API or user error. Regardless, I am keeping this step as a part of the process.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">req_dry_run</span>(<span class="fu">oauth_client_req_auth</span>(req,strava_client),<span class="at">redact_headers =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Authentication Steps API.png" class="img-fluid figure-img" width="464"></p>
+<figcaption>Authentication Message example</figcaption>
+</figure>
+</div>
+</section>
+<section id="request" class="level3">
+<h3 class="anchored" data-anchor-id="request">Request</h3>
+<p>To do this in httr2 I took the “req” object created above and piped it through to the family of “req_” functions that help to authenticate the request.</p>
+<ul>
+<li><p><a href="https://httr2.r-lib.org/reference/req_url.html">req_url_path_append()</a> - adding the endpoints that I need to the base url above. The endpoints come from the Strava API which details what data each endpoint contains.</p></li>
+<li><p><a href="https://httr2.r-lib.org/reference/req_url.html">req_url_query()</a> - Strava’s docs dictate that we can specify the number of pages as well as items per page. Items per page or activities per page is set to the default of 30 and pages defaults as 1. We can use the url query to pass these unique parameters into our request.</p></li>
+<li><p><a href="https://httr2.r-lib.org/reference/req_oauth_auth_code.html">req_oauth_auth_code()</a> - Finally we used this function for our authorization code flow as it covers what is needed for our application.</p></li>
+<li><p><a href="https://httr2.r-lib.org/reference/req_perform.html">req_perform()</a> - This function is used to perform the get request. Once we have created the desired request with all necessary parameters, then we need to pipe that request into this function and store the response.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Activities Endpoint Params.png" class="img-fluid figure-img" width="464"></p>
+<figcaption>Endpoint Params for URL query</figcaption>
+</figure>
+</div>
+<p>Basic httr2 pipe based GET request:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#GET request using everything we have covered so far:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(base_url) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_path_append</span>(<span class="st">"activities"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">per_page =</span> <span class="dv">200</span>, <span class="at">page =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_oauth_auth_code</span>(<span class="at">client =</span> strava_client,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">auth_url =</span> auth_url,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">scope =</span> <span class="st">"activity:read_all"</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">cache_disk =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Performing request and returning the HTTP response and storing it:</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> req <span class="sc">%&gt;%</span> <span class="fu">req_perform</span>()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Check the status of our response from the auth server:</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>resp</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Storing the body of the response as a list of lists:</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>strava_json <span class="ot">&lt;-</span> resp <span class="sc">%&gt;%</span> <span class="fu">resp_body_json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+<p>To re-cap at this point I now have the follow data objects in my environment window:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#This function was built to return the Name and Type of object in the enviroment window - I wanted a filtered list of the objects that matter and did not want to include the values/secrets:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>env_obj_classes <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># List the objects in your R environment</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  object_list <span class="ot">&lt;-</span> <span class="fu">ls</span>(<span class="at">envir =</span> .GlobalEnv)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if there are no objects</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(object_list) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"No objects found in the environment.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">Name =</span> <span class="fu">character</span>(), <span class="at">Class =</span> <span class="fu">character</span>(), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Initialize an empty data frame</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  env_obj_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Name =</span> <span class="fu">character</span>(), <span class="at">Class =</span> <span class="fu">character</span>(), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Loop through each object and populate the data frame</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (object_name <span class="cf">in</span> object_list) {</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    env_obj_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>      env_obj_df,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">data.frame</span>(</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">Name =</span> object_name,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">Class =</span> <span class="fu">class</span>(<span class="fu">get</span>(object_name)),</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(env_obj_df)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="fu">env_obj_classes</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(Name,<span class="st">"strava|req|resp"</span>)) <span class="sc">%&gt;%</span> <span class="fu">tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="part-ii-request-modification" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-request-modification">Part II | Request Modification</h2>
+<p>Up to this point I have covered the following:</p>
+<ul>
+<li><p>The basics of OAuth2.0 &amp; HTTP</p></li>
+<li><p>The important parts of Strava’s API and how to use them to connect.</p></li>
+<li><p>The basics of a GET request using httr2</p></li>
+</ul>
+<p>The last part of this walk through I will cover pagination and how to modify your request in order to gather all available user data. I will be drawing from the <a href="https://github.com/fawda123/rStrava">rStrava</a> package and watering it down to learn from them and to modify their functions for my own uses. Their package and functions take out all of the leg work that I am doing and I highly recommend using them. However, like I said in the beginning, I am using this project to develop and learn about what what is going on “under the hood”.</p>
+<section id="pagination" class="level3">
+<h3 class="anchored" data-anchor-id="pagination">Pagination</h3>
+<p>This is extremely important concept if you are new to working with APIs. Pagination as it refers to APIs is the practice of breaking up the data into smaller chunks. From what I gathered, the main reason this is done is to improve performance. In my case rather than pull all 600+ activities they are broken up into chunks of 200. We can see from the Strava API that the activities endpoint has query parameters page &amp; per_page listed above. This might be simple for most to understand, but I made the mistake of thinking of “page” as “number of pages” when above it is defined as “page number” in the sense that the pages are indexed. Each page is given an “id” 1,2,3,4….. each page can at max hold 200 items or activities. The defaults are set to pull 30 items from page 1. How did we find the 200 max? - Answer in the docs:</p>
+<p><img src="images/Strava Pagination.png" class="img-fluid"></p>
+</section>
+<section id="rate-limits" class="level3">
+<h3 class="anchored" data-anchor-id="rate-limits">Rate Limits</h3>
+<p>In my case rate limits are not as big a concern as I will be the sole user of my application. It is highly unlikely I will exceed either of the limits. We can find the two types of “rate limits” that Strava maintains. The value of <code>X-RateLimit-Limit</code> is “200,2000” this is read as: “200 requests every 15 minutes, 2000 daily requests” we are dependent upon Strava’s documentation for this information which is referred to as the “overall rate limit”. Additionally, The value of <code>X-ReadRateLimit-Limit</code> is “100,1000” this is read as: “100 requests every 15 minutes, 1000 daily requests” this is referred to as “read rate limit”. Which one do we use?</p>
+<p>This is another example of where we are really dependent upon “good/detailed” API documentation. The distinction between “overall rate limit” &amp; “read rate limit” is obscure. I did not find it explicitly detailed in the documentation and I believe other users found the same issues. After this question was posted in the Strava forums the answer was published by Strava. They detail that the type of activity is a consideration in the rate limits:</p>
+<p><img src="images/Rate Limits Explainations-01.png" class="img-fluid" width="671"></p>
+<p>I know that my goal will only employ the use of the HTTP GET requests so this answers my question and I will use <code>X-RateLimit-Limit</code> &amp; <code>X-RateLimit-Usage</code> for my project. Given the above considerations of pagination and rate limits, we know at max we can get 200 activities per page but right now the request is only pulling one page at a time. I have ~600 activities I would like to gather data on. So we have two tasks:</p>
+<ol type="1">
+<li><p>Using Iteration to get around the Pagination problem:</p>
+<ul>
+<li><p><a href="https://httr2.r-lib.org/reference/req_perform_iterative.html">req_perform_iterative()</a> - I am using this to perform multiple requests to the API iteratively:</p>
+<ul>
+<li><p>I pass my <code>req</code> request from above as one of the arguments.</p></li>
+<li><p><code>next_req()</code> this argument is a function that allows me to define how I want to handle the next request. In this case I am going to pass another function into this argument <code>iterate_with_offset()</code>.</p></li>
+<li><p><code>progress</code> - added a progress bar because its pretty cool!</p></li>
+</ul></li>
+<li><p><a href="https://httr2.r-lib.org/reference/iterate_with_offset.html">iterate_with_offset()</a> - With this function I can adjust the query params from my original request. In this case I am targeting the page parameter. The key to this function is the callback function <code>is_complete</code> that is nested inside.</p>
+<ul>
+<li><code>is_complete</code> - Evaluates to either TRUE or FALSE. When the <code>resp</code> object is returned in each iteration this function looks at the length of the body of the object. When length is == 0 that means there are no more activities to pull; <code>is_complete</code> would return TRUE and the <code>resp_complete</code> argument will stop the loop (Note: the loop is stopped on the first page to return 0 so we do receive one empty page but it will not affect the output).</li>
+</ul></li>
+</ul></li>
+<li><p>Set parameters for total requests:</p>
+<ul>
+<li>This is not as serious in my case because I am not creating a package and I have no users. but regardless <a href="https://httr2.r-lib.org/reference/req_perform_iterative.html">req_perform_iterative()</a> -&gt; <code>max_reqs</code> allows me to plug in my current usage rate to be positive that I never eclipse the 15 minute request limit. <a href="https://github.com/fawda123/rStrava/blob/master/R/ratelimit.R">Ratelimit()</a> comes from <a href="https://github.com/fawda123/rStrava/blob/master/R/ratelimit.R">rStrava</a> I am including it here in the context of rate limits as an example how to handle them.</li>
+</ul></li>
+</ol>
+<p>That’s it, below is the complete modified request. that I do not have to re-run everything I will call the basic request using R’s source function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Callback function that with logical response:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>is_complete <span class="ot">&lt;-</span> <span class="cf">function</span>(resp) {</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>(<span class="fu">resp_body_json</span>(resp)) <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>ratelimit <span class="ot">&lt;-</span> <span class="cf">function</span>(req){</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    limit <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">strsplit</span>(req<span class="sc">$</span>headers<span class="sc">$</span><span class="st">`</span><span class="at">x-ratelimit-limit</span><span class="st">`</span>, <span class="st">","</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    usage <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">strsplit</span>(req<span class="sc">$</span>headers<span class="sc">$</span><span class="st">`</span><span class="at">x-ratelimit-usage</span><span class="st">`</span>, <span class="st">","</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    usage_left <span class="ot">&lt;-</span> limit <span class="sc">-</span> usage</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#performs all three calculations above but returns only the last calculation when the function is used. </span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(usage_left)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Below is the wrapped iterative request with all of our functions and reqs placed inside:</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>resps <span class="ot">&lt;-</span> <span class="fu">req_perform_iterative</span>(</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  req,</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">next_req =</span> <span class="fu">iterate_with_offset</span>(<span class="at">start =</span> <span class="dv">1</span>,<span class="st">"page"</span>, <span class="at">resp_complete =</span> is_complete),</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_reqs =</span> <span class="fu">ratelimit</span>(resp) <span class="sc">%&gt;%</span> .[<span class="dv">1</span>],</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">progress =</span> <span class="cn">TRUE</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Displaying the outcome:</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>resps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/lukealbracht\.github\.io\/Data-proj-portfolio\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
