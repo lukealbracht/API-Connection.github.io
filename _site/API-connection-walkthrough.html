@@ -414,8 +414,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the graph ----</span></span>
 <span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="fu">render_graph</span>(Diagram)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-4ca81227315e337d35ad" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-4ca81227315e337d35ad">{"x":{"diagram":"graph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Application\n(Client)\n(My Strava App)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#007AC1\", fontcolor = \"White\", height = \"5\", width = \"2\"] \n  \"2\" [label = \"User\n(My Strava\nProfile)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#FDBB30\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"3\" [label = \"Authorization\nServer\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#C71585\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"4\" [label = \"Resource\n Server\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"Orangered\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n\"1\"--\"2\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"1.)Authorization is requested from the\n app to the user/profile/data owner.\", dir = \"forward\", headport = \"n\", tailport = \"n\"] \n\"2\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"2.)User grants authorization to the app.\", dir = \"forward\", dir = \"forward\", dir = \"forward\"] \n\"1\"--\"3\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"3.)App sends the authorization grant\nto the authorization server\", dir = \"forward\", headport = \"n\", headport = \"n\"] \n\"3\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"4.)Access token is granted to the app.\", dir = \"forward\", dir = \"forward\", tailport = \"w\"] \n\"1\"--\"4\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"5.)Access token is sent from app\nvia HTTP|GET request.\", dir = \"forward\", headport = \"w\", headport = \"w\"] \n\"4\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"6.)Access to resource data\nis granted to the application.\", dir = \"forward\", headport = \"s\", tailport = \"s\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-a3b9e398b401c3383b2a" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-a3b9e398b401c3383b2a">{"x":{"diagram":"graph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Application\n(Client)\n(My Strava App)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#007AC1\", fontcolor = \"White\", height = \"5\", width = \"2\"] \n  \"2\" [label = \"User\n(My Strava\nProfile)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#FDBB30\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"3\" [label = \"Authorization\nServer\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#C71585\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"4\" [label = \"Resource\n Server\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"Orangered\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n\"1\"--\"2\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"1.)Authorization is requested from the\n app to the user/profile/data owner.\", dir = \"forward\", headport = \"n\", tailport = \"n\"] \n\"2\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"2.)User grants authorization to the app.\", dir = \"forward\", dir = \"forward\", dir = \"forward\"] \n\"1\"--\"3\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"3.)App sends the authorization grant\nto the authorization server\", dir = \"forward\", headport = \"n\", headport = \"n\"] \n\"3\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"4.)Access token is granted to the app.\", dir = \"forward\", dir = \"forward\", tailport = \"w\"] \n\"1\"--\"4\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"5.)Access token is sent from app\nvia HTTP|GET request.\", dir = \"forward\", headport = \"w\", headport = \"w\"] \n\"4\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"6.)Access to resource data\nis granted to the application.\", dir = \"forward\", headport = \"s\", tailport = \"s\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div></li>
 </ol>
@@ -586,62 +586,38 @@ Name: Luke Albracht</code></pre>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Performing request and returning the HTTP response and storing it:</span></span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> req <span class="sc">%&gt;%</span> <span class="fu">req_perform</span>()</span>
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Check the status of our response from the auth server:</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>resp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>&lt;httr2_response&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>GET https://www.strava.com/api/v3/activities?per_page=200&amp;page=1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Status: 200 OK</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Content-Type: application/json</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Body: In memory (363421 bytes)</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Storing the body of the response as a list of lists:</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>strava_json <span class="ot">&lt;-</span> resp <span class="sc">%&gt;%</span> <span class="fu">resp_body_json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>resp</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Storing the body of the response as a list of lists:</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>strava_json <span class="ot">&lt;-</span> resp <span class="sc">%&gt;%</span> <span class="fu">resp_body_json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 <p>To re-cap at this point I now have the follow data objects in my environment window:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#This function was built to return the Name and Type of object in the enviroment window - I wanted a filtered list of the objects that matter and did not want to include the values/secrets:</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>env_obj_classes <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># List the objects in your R environment</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  object_list <span class="ot">&lt;-</span> <span class="fu">ls</span>(<span class="at">envir =</span> .GlobalEnv)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if there are no objects</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(object_list) <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"No objects found in the environment.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">Name =</span> <span class="fu">character</span>(), <span class="at">Class =</span> <span class="fu">character</span>(), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Initialize an empty data frame</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  env_obj_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Name =</span> <span class="fu">character</span>(), <span class="at">Class =</span> <span class="fu">character</span>(), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Loop through each object and populate the data frame</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (object_name <span class="cf">in</span> object_list) {</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    env_obj_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>      env_obj_df,</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">data.frame</span>(</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">Name =</span> object_name,</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">Class =</span> <span class="fu">class</span>(<span class="fu">get</span>(object_name)),</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(env_obj_df)</span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="fu">env_obj_classes</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(Name,<span class="st">"strava|req|resp"</span>)) <span class="sc">%&gt;%</span> <span class="fu">tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
-  Name          Class             
-  &lt;chr&gt;         &lt;chr&gt;             
-1 req           httr2_request     
-2 resp          httr2_response    
-3 strava_client httr2_oauth_client
-4 strava_json   list              </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#This function was built to return the Name and Type of object in the enviroment window - I wanted a filtered list of the objects that matter and did not want to include the values/secrets:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>env_obj_classes <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># List the objects in your R environment</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  object_list <span class="ot">&lt;-</span> <span class="fu">ls</span>(<span class="at">envir =</span> .GlobalEnv)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if there are no objects</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(object_list) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"No objects found in the environment.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">Name =</span> <span class="fu">character</span>(), <span class="at">Class =</span> <span class="fu">character</span>(), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Initialize an empty data frame</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  env_obj_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Name =</span> <span class="fu">character</span>(), <span class="at">Class =</span> <span class="fu">character</span>(), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Loop through each object and populate the data frame</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (object_name <span class="cf">in</span> object_list) {</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    env_obj_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>      env_obj_df,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">data.frame</span>(</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">Name =</span> object_name,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">Class =</span> <span class="fu">class</span>(<span class="fu">get</span>(object_name)),</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(env_obj_df)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="fu">env_obj_classes</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(Name,<span class="st">"strava|req|resp"</span>)) <span class="sc">%&gt;%</span> <span class="fu">tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -686,134 +662,33 @@ Name: Luke Albracht</code></pre>
 </ol>
 <p>That’s it, below is the complete modified request. that I do not have to re-run everything I will call the basic request using R’s source function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Callback function that with logical response:</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>is_complete <span class="ot">&lt;-</span> <span class="cf">function</span>(resp) {</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>(<span class="fu">resp_body_json</span>(resp)) <span class="sc">==</span> <span class="dv">0</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>ratelimit <span class="ot">&lt;-</span> <span class="cf">function</span>(req){</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    limit <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">strsplit</span>(req<span class="sc">$</span>headers<span class="sc">$</span><span class="st">`</span><span class="at">x-ratelimit-limit</span><span class="st">`</span>, <span class="st">","</span>)[[<span class="dv">1</span>]])</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    usage <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">strsplit</span>(req<span class="sc">$</span>headers<span class="sc">$</span><span class="st">`</span><span class="at">x-ratelimit-usage</span><span class="st">`</span>, <span class="st">","</span>)[[<span class="dv">1</span>]])</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    usage_left <span class="ot">&lt;-</span> limit <span class="sc">-</span> usage</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co">#performs all three calculations above but returns only the last calculation when the function is used. </span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(usage_left)</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Below is the wrapped iterative request with all of our functions and reqs placed inside:</span></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>resps <span class="ot">&lt;-</span> <span class="fu">req_perform_iterative</span>(</span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  req,</span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">next_req =</span> <span class="fu">iterate_with_offset</span>(<span class="at">start =</span> <span class="dv">1</span>,<span class="st">"page"</span>, <span class="at">resp_complete =</span> is_complete),</span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_reqs =</span> <span class="fu">ratelimit</span>(resp) <span class="sc">%&gt;%</span> .[<span class="dv">1</span>],</span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">progress =</span> <span class="cn">TRUE</span></span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Iterating ■                                  1% | ETA:  3m</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Iterating ■                                  1% | ETA:  4m</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Iterating ■■                                 3% | ETA:  3m</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Displaying the outcome:</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>resps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>&lt;httr2_response&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>GET https://www.strava.com/api/v3/activities?per_page=200&amp;page=1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Status: 200 OK</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Content-Type: application/json</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Body: In memory (363421 bytes)</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[2]]</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>&lt;httr2_response&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>GET https://www.strava.com/api/v3/activities?per_page=200&amp;page=2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Status: 200 OK</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Content-Type: application/json</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Body: In memory (385459 bytes)</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[3]]</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>&lt;httr2_response&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>GET https://www.strava.com/api/v3/activities?per_page=200&amp;page=3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Status: 200 OK</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Content-Type: application/json</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Body: In memory (283715 bytes)</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[4]]</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>&lt;httr2_response&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>GET https://www.strava.com/api/v3/activities?per_page=200&amp;page=4</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Status: 200 OK</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Content-Type: application/json</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Body: In memory (11535 bytes)</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[5]]</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>&lt;httr2_response&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>GET https://www.strava.com/api/v3/activities?per_page=200&amp;page=5</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Status: 200 OK</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Content-Type: application/json</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Body: In memory (2 bytes)</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Callback function that with logical response:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>is_complete <span class="ot">&lt;-</span> <span class="cf">function</span>(resp) {</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>(<span class="fu">resp_body_json</span>(resp)) <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>ratelimit <span class="ot">&lt;-</span> <span class="cf">function</span>(req){</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    limit <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">strsplit</span>(req<span class="sc">$</span>headers<span class="sc">$</span><span class="st">`</span><span class="at">x-ratelimit-limit</span><span class="st">`</span>, <span class="st">","</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    usage <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">strsplit</span>(req<span class="sc">$</span>headers<span class="sc">$</span><span class="st">`</span><span class="at">x-ratelimit-usage</span><span class="st">`</span>, <span class="st">","</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    usage_left <span class="ot">&lt;-</span> limit <span class="sc">-</span> usage</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#performs all three calculations above but returns only the last calculation when the function is used. </span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(usage_left)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Below is the wrapped iterative request with all of our functions and reqs placed inside:</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>resps <span class="ot">&lt;-</span> <span class="fu">req_perform_iterative</span>(</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  req,</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">next_req =</span> <span class="fu">iterate_with_offset</span>(<span class="at">start =</span> <span class="dv">1</span>,<span class="st">"page"</span>, <span class="at">resp_complete =</span> is_complete),</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_reqs =</span> <span class="fu">ratelimit</span>(resp) <span class="sc">%&gt;%</span> .[<span class="dv">1</span>],</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">progress =</span> <span class="cn">TRUE</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Displaying the outcome:</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>resps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

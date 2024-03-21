@@ -297,7 +297,7 @@ To do this in httr2 I took the "req" object created above and piped it through t
 
     Basic httr2 pipe based GET request:
 
-    ```{r}
+    ```{r eval=FALSE}
     #GET request using everything we have covered so far:
     req <- request(base_url) %>%
       req_url_path_append("activities") %>%
@@ -317,7 +317,7 @@ To do this in httr2 I took the "req" object created above and piped it through t
 
 To re-cap at this point I now have the follow data objects in my environment window:
 
-```{r}
+```{r, eval=FALSE}
 #This function was built to return the Name and Type of object in the enviroment window - I wanted a filtered list of the objects that matter and did not want to include the values/secrets:
 env_obj_classes <- function() {
   # List the objects in your R environment
@@ -393,7 +393,7 @@ I know that my goal will only employ the use of the HTTP GET requests so this an
 
 That's it, below is the complete modified request. that I do not have to re-run everything I will call the basic request using R's source function:
 
-```{r}
+```{r, eval=FALSE}
 #Callback function that with logical response:
 is_complete <- function(resp) {
   length(resp_body_json(resp)) == 0
