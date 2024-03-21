@@ -25,7 +25,7 @@ categories:
 ```{r}
 #Install and load the required packages if not already installed:
 if (!require(pacman)) install.packages("pacman")
-  p_load(tidyverse,DiagrammeR,networkD3,gt,httr2,jsonlite,conflicted,httpuv,igraph)
+  p_load(tidyverse,DiagrammeR,gt,httr2,jsonlite,conflicted,httpuv,igraph,networkD3)
 #Conflicted package set to prefer dplyr over others:
   conflicted::conflicts_prefer(dplyr::filter)
   conflicted::conflicts_prefer(dplyr::data_frame)
