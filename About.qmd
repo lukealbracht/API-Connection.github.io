@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "About Me"
 subtitle: "Luke Albracht"
 about:
   template: jolla
@@ -7,7 +7,7 @@ about:
   links:
     - icon: linkedin
       text: linkedin
-      href: www.linkedin.com/in/lucasalbracht
+      href: https://linkedin.com/in/lucasalbracht
     - icon: github
       text: Github
       href: https://github.com/lukealbracht

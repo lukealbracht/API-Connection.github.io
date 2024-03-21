@@ -133,27 +133,6 @@ df3 <- data.frame(x = period,
                wave = "Cosine Wave")
 ```
 
-#### Sine Wave Graph \| ggplot
-
-```{r}
-#Showing the  basic ggplots of each graph:
-#Pipe the data frame:
-Wave1 <- df %>%
-  ggplot(aes(x=x,y=y))+
-  geom_line(color= "cyan", size = 1)+
-  labs(title = "Sine Wave")+
-  theme(plot.title = element_text(face = "bold",size = 15))
-Wave1
-
-Wave2 <- df2 %>%
-  ggplot(aes(x=x,y=y))+
-  geom_line(color= "cyan", size = 1)+
-  labs(title = "Sine Wave")+
-  theme(plot.title = element_text(face = "bold",size = 15))
-
-Wave2
-```
-
 #### Sine Wave Graph \| plotly
 
 ```{r}

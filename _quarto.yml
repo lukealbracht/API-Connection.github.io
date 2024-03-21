@@ -1,30 +1,50 @@
+#This specifies the project is to be a website.
 project:
   type: website
+  title: Lucas Albracht Analytics 
 
+#Adding the title of the site, search bar, and "back to top" button when scrolling:
 website:
-  title: "Data vizualization projects with R|Luke Albracht"
-  search: true
-  back-to-top-navigation: true
+  title: "Analytics Portfolio"
+  page-navigation: true
   navbar:
+    background: primary
     style: "docked"
     search: true
     toc: true
-    contents:
-      - About.qmd
-      - API-connection-walkthrough.qmd
-      - Plotting-sine-waves.qmd
+    left:
+      - href: About.qmd
+        text: About Me
+      - text: Projects
+        menu:
+        - text: API Walkthrough 
+          href: API-connection-walkthrough.qmd
+        - text: Trig Waves in ggplot 
+          href: Trig-waves.qmd
+          
+#Adding my links to the top navbar:      
+    right:
+      - icon: linkedin
+        text: linkedin
+        href: https://linkedin.com/in/lucasalbracht
+      - icon: github
+        text: Github
+        href: https://github.com/lukealbracht
+      - icon: envelope-at-fill
+        href: "mailto:albrachtlucas@gmail.com" 
 
-title-block-banner: "#27445C"
+          
+#Sets the title block banner for the site:     
+title-block-banner: "#0f2537"
 format: 
   html:
     smooth-scroll: true
-    fontcolor: black
+    fontcolor: white
     toc: true
     toc-location: left
     toc-title: Summary
-    toc-depth: 3
-css: styles.css
-theme:
-  light: [cosmo, assets/scripts/lightstyle.scss]
-  dark: [cosmo, assets/scripts/darkstyle.scss]
+    toc-depth: 4
+    theme: 
+      - superhero
+      - custom.scss
 
