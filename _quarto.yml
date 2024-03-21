@@ -11,7 +11,7 @@ website:
     toc: true
     contents:
       - About.qmd
-      - API Connection Walkthrough.qmd
+      - API-Connection-Walkthrough.qmd
       - Plotting-sine-waves.qmd
 
 format:

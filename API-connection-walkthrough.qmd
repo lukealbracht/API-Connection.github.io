@@ -253,7 +253,7 @@ Creating our request & using [req_dry_run()](https://httr2.r-lib.org/reference/r
 # Method - GET 
 # Path - (/api/v3) 
 # HTTP protocol version - HTTP/1.1
-req <- request(base_url)
+req <- request(base_url) %>% req_cache(tempdir())
 req %>% req_headers(Name = "Luke Albracht") %>% req_dry_run()
 ```
 
