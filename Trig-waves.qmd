@@ -18,6 +18,9 @@ categories:
   - ggplot
   - plotly
   - Data vizualization
+
+execute: 
+  freeze: auto
 ---
 
 ## Libraries

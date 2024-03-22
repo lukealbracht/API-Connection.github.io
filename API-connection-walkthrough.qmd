@@ -6,7 +6,7 @@ title: "Strava API Connnection Walkthrough"
 description: "This document walks through how to connect to Strava's API."
 author:
   - name: Luke Albracht
-date: today
+date: 03-22-2024
 date-meta: short
 
 format: 
@@ -21,6 +21,9 @@ categories:
   - Data Wrangling
   - OAuth
   - HTTP Requests
+
+execute: 
+  freeze: auto
 ---
 
 ## Libraries
