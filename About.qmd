@@ -3,7 +3,7 @@ title: "About Me"
 subtitle: "Luke Albracht"
 about:
   template: jolla
-  image: images/Jesse & Luke.png
+  image: "images/Jesse & Luke.png"
   links:
     - icon: linkedin
       text: linkedin
