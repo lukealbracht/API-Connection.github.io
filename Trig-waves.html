@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Luke Albracht">
+<meta name="dcterms.date" content="short">
+<meta name="description" content="Testing out ggplot and plotly with trig waves">
+
+<title>Analytics Portfolio - Plotting sine waves in ggplot &amp; plotly</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Analytics Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./About.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="./API-connection-walkthrough.html">
+ <span class="dropdown-text">API Walkthrough</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Trig-waves.html">
+ <span class="dropdown-text">Trig Waves in ggplot</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/lucasalbracht"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text">linkedin</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/lukealbracht"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">Github</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:albrachtlucas@gmail.com"> <i class="bi bi-envelope-at-fill" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Plotting sine waves in ggplot &amp; plotly</h1>
+                  <div>
+        <div class="description">
+          Testing out ggplot and plotly with trig waves
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">ggplot</div>
+                <div class="quarto-category">plotly</div>
+                <div class="quarto-category">Data vizualization</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Luke Albracht </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 22, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Summary</h2>
+   
+  <ul>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link active" data-scroll-target="#libraries">Libraries</a>
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  </ul></li>
+  <li><a href="#sine-wave-equation" id="toc-sine-wave-equation" class="nav-link" data-scroll-target="#sine-wave-equation">Sine Wave Equation</a>
+  <ul>
+  <li><a href="#definitions" id="toc-definitions" class="nav-link" data-scroll-target="#definitions">Definitions:</a></li>
+  <li><a href="#ggplot" id="toc-ggplot" class="nav-link" data-scroll-target="#ggplot">ggplot</a></li>
+  <li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging">Debugging</a>
+  <ul class="collapse">
+  <li><a href="#sine-wave-graph-plotly" id="toc-sine-wave-graph-plotly" class="nav-link" data-scroll-target="#sine-wave-graph-plotly">Sine Wave Graph | plotly</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="libraries" class="level2">
+<h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#I will be using the following libraries:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(pacman)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse,hrbrthemes,plotly,ggplot2,igraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">Overview</h3>
+<p>Below I am using ggplot &amp; plotly to create sine wave plots in R.</p>
+</section>
+</section>
+<section id="sine-wave-equation" class="level2">
+<h2 class="anchored" data-anchor-id="sine-wave-equation">Sine Wave Equation</h2>
+<p><span class="math display">\[
+y=A*sin(Bx+C)+D
+\]</span></p>
+<section id="definitions" class="level4">
+<h4 class="anchored" data-anchor-id="definitions">Definitions:</h4>
+<ul>
+<li><p>A - is the amplitude, which represents the maximum displacement from the equilibrium position.</p></li>
+<li><p>B - is the frequency or angular frequency, which determines how many cycles occur in a given interval of X.</p></li>
+<li><p>C - is the phase shift, which represents a horizontal shift along the X-axis.</p></li>
+<li><p>D - is the vertical shift, which represents a vertical translation of the curve.</p></li>
+</ul>
+</section>
+<section id="ggplot" class="level3">
+<h3 class="anchored" data-anchor-id="ggplot">ggplot</h3>
+<p>In order to graph this with ggplot or later with plotly we will have to have a data frame. In order to get that I am going to make a number of assignments so that I can input variables into my sign equation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Asign our variables:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co">#amplitude</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co">#frequency or period</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co">#phase shift or horizontial shift</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co">#vertical shift</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>start_point <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co">#where your curve starts</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#frequency from above will be assigned again here using the seq() function in base R to create a sequence of numbers from 1 to B - in order to create a "smooth" looking line we will "by" equal to ".01" which means that we will have a point on the x axis from 1 to B every .01 increment: </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>period <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> start_point,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">to =</span> B<span class="sc">*</span>pi, </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#plug the period variable into our dataframe and set Y equal to our equation above. - in order to get the graph to move with these variables all of them must be present in the y column of our dataframe:</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> period,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> A<span class="sc">*</span><span class="fu">sin</span>(period<span class="sc">+</span>C)<span class="sc">+</span>D,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">label =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(period),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">shift =</span> D)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a phase shifted wave to superimpose on the first wave:</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> period,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> A<span class="sc">*</span><span class="fu">sin</span>(period<span class="sc">+</span>(C<span class="sc">+</span><span class="dv">2</span>))<span class="sc">+</span>D,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">label =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(period),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">shift =</span> D)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#data frame of sinusoidal wave:</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(x) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    x         y label shift
+1 1.0 0.8414710     1     0
+2 1.1 0.8912074     2     0
+3 1.2 0.9320391     3     0
+4 1.3 0.9635582     4     0
+5 1.4 0.9854497     5     0
+6 1.5 0.9974950     6     0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(x) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    x           y label shift
+1 1.0  0.14112001     1     0
+2 1.1  0.04158066     2     0
+3 1.2 -0.05837414     3     0
+4 1.3 -0.15774569     4     0
+5 1.4 -0.25554110     5     0
+6 1.5 -0.35078323     6     0</code></pre>
+</div>
+</div>
+</section>
+<section id="debugging" class="level3">
+<h3 class="anchored" data-anchor-id="debugging">Debugging</h3>
+<p>When I was making assignments to the equation and data frame above I noticed I was receiving errors when the starting point and endpoints are changed. The direction of increment is determined based on the sign of <strong><code>to - from</code></strong>. If <strong><code>to</code></strong> is greater than <strong><code>from</code></strong>, the increment will be positive, causing theta values to increase from <strong><code>from</code></strong> to <strong><code>to</code></strong>. If <strong><code>to</code></strong> is less than <strong><code>from</code></strong>, the increment will be negative, causing theta values to decrease from <strong><code>from</code></strong> to <strong><code>to</code></strong>. So we need to create a function that dynamically adjusts our increment variable depending on the sign of <code>B</code> and our <code>startpoint</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Asign our variables:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co">#amplitude</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co">#frequency or period</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co">#phase shift or horizontial shift</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co">#vertical shift (displacment)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>start_point <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co">#where your curve starts</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Adjustment function for "by" variable:</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>generate_increment <span class="ot">&lt;-</span> <span class="cf">function</span>(x, start_point, B) {</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (B <span class="sc">-</span> start_point <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> x)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (B <span class="sc">-</span> start_point <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">1</span> <span class="sc">*</span> x)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">0</span>)  <span class="co"># In case B - start_point equals 0</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Setting increment to ".1" &amp; setting shift placement based on startpoint:</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>adj_by <span class="ot">&lt;-</span> <span class="fu">generate_increment</span>(.<span class="dv">1</span>,start_point,B)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>adj_shift <span class="ot">&lt;-</span> <span class="fu">generate_increment</span>(<span class="dv">1</span>,start_point,B)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#frequency from above will be assigned again here using the seq() function in base R to create a sequence of numbers from 1 to B - in order to create a "smooth" looking line we will "by" equal to ".01" which means that we will have a point on the x axis from 1 to B every .01 increment: </span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>period <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> start_point,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">to =</span> B<span class="sc">*</span>pi, </span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> adj_by)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#plug the period variable into our dataframe and set Y equal to our equation above. - in order to get the graph to move with these variables all of them must be present in the y column of our dataframe:</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> period,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> A<span class="sc">*</span><span class="fu">sin</span>(period<span class="sc">+</span>C)<span class="sc">+</span>D,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">label =</span> <span class="dv">0</span><span class="sc">:</span>(<span class="fu">length</span>(period)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span>adj_shift,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>               <span class="at">shift =</span> D,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">wave =</span> <span class="st">"Sine Wave Base"</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a phase shifted wave to superimpose on the first wave:</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> period,</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> A<span class="sc">*</span><span class="fu">sin</span>(period<span class="sc">+</span>(C<span class="sc">+</span><span class="dv">2</span>))<span class="sc">+</span>D,</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>               <span class="at">label =</span> <span class="dv">0</span><span class="sc">:</span>(<span class="fu">length</span>(period)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span>adj_shift,</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>               <span class="at">shift =</span> D,</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>               <span class="at">wave =</span> <span class="st">"Sine Wave Shifted"</span>)</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a cosine wave to superimpose on the other waves:</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> period,</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> A<span class="sc">*</span><span class="fu">cos</span>(period<span class="sc">+</span>C)<span class="sc">+</span>D,</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>               <span class="at">label =</span> <span class="dv">0</span><span class="sc">:</span>(<span class="fu">length</span>(period)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span>adj_shift,</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>               <span class="at">shift =</span> D,</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>               <span class="at">wave =</span> <span class="st">"Cosine Wave"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="sine-wave-graph-plotly" class="level4">
+<h4 class="anchored" data-anchor-id="sine-wave-graph-plotly">Sine Wave Graph | plotly</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pull all data together to get labels:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df,df2,df3)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize and list wave labels to character vector for legend below:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>wave_type <span class="ot">&lt;-</span> all_data <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wave) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>()</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>wave_type <span class="ot">&lt;-</span> wave_type <span class="sc">%&gt;%</span> <span class="fu">as.character</span>()</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> wave),  <span class="co"># Map color aesthetic and provide legend label</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">linetype =</span> <span class="st">"solid"</span>) <span class="sc">+</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df2,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> wave),  <span class="co"># Map color aesthetic and provide legend label</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">linetype =</span> <span class="st">"solid"</span>) <span class="sc">+</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="at">data =</span> df3,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> wave),  <span class="co"># Map color aesthetic and provide legend label</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">linetype =</span> <span class="st">"solid"</span>) <span class="sc">+</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">frame =</span> label)) <span class="sc">+</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> shift),</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"purple"</span>,</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>            <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Wave Type"</span>) <span class="sc">+</span>  <span class="co"># Provide a common legend title</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"cyan"</span>, <span class="st">"red"</span>,<span class="st">"yellow"</span>), <span class="at">labels =</span> wave_type) <span class="co"># Define color palette and legend labels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in geom_point(data = df, aes(x = x, y = y, frame = label)): Ignoring
+unknown aesthetics: frame</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Add plotly interaction and legend:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  plotly<span class="sc">::</span><span class="fu">layout</span>(<span class="at">title =</span> <span class="st">'Wave Graph - Superimposed'</span>,<span class="at">plot_bgcolor =</span> <span class="st">"#e5ecf6"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-2942468c7aba1fa90201" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-2942468c7aba1fa90201">{"x":{"data":[{"x":[0,0.10000000000000001,0.20000000000000001,0.30000000000000004,0.40000000000000002,0.5,0.60000000000000009,0.70000000000000007,0.80000000000000004,0.90000000000000002,1,1.1000000000000001,1.2000000000000002,1.3,1.4000000000000001,1.5,1.6000000000000001,1.7000000000000002,1.8,1.9000000000000001,2,2.1000000000000001,2.2000000000000002,2.3000000000000003,2.4000000000000004,2.5,2.6000000000000001,2.7000000000000002,2.8000000000000003,2.9000000000000004,3,3.1000000000000001,3.2000000000000002,3.3000000000000003,3.4000000000000004,3.5,3.6000000000000001,3.7000000000000002,3.8000000000000003,3.9000000000000004,4,4.1000000000000005,4.2000000000000002,4.2999999999999998,4.4000000000000004,4.5,4.6000000000000005,4.7000000000000002,4.8000000000000007,4.9000000000000004,5,5.1000000000000005,5.2000000000000002,5.3000000000000007,5.4000000000000004,5.5,5.6000000000000005,5.7000000000000002,5.8000000000000007,5.9000000000000004,6,6.1000000000000005,6.2000000000000002],"y":[0,0.099833416646828155,0.19866933079506122,0.2955202066613396,0.38941834230865052,0.47942553860420301,0.56464247339503548,0.64421768723769113,0.71735609089952279,0.78332690962748341,0.8414709848078965,0.89120736006143542,0.9320390859672264,0.96355818541719296,0.98544972998846025,0.99749498660405445,0.99957360304150511,0.99166481045246857,0.97384763087819515,0.94630008768741447,0.90929742682568171,0.86320936664887371,0.80849640381959009,0.74570521217672003,0.67546318055115062,0.59847214410395655,0.51550137182146416,0.42737988023382978,0.33498815015590466,0.23924932921398198,0.14112000805986721,0.041580662433290491,-0.058374143427580086,-0.15774569414324865,-0.25554110202683167,-0.35078322768961984,-0.44252044329485246,-0.5298361409084934,-0.61185789094271925,-0.6877661591839741,-0.7568024953079282,-0.81827711106441081,-0.87157577241358819,-0.9161659367494549,-0.95160207388951601,-0.97753011766509701,-0.99369100363346452,-0.99992325756410083,-0.99616460883584057,-0.98245261262433248,-0.95892427466313845,-0.92581468232773212,-0.88345465572015314,-0.83226744222390081,-0.77276448755598715,-0.70554032557039192,-0.63126663787232085,-0.55068554259763758,-0.46460217941375659,-0.37387666483023602,-0.27941549819892586,-0.18216250427209502,-0.083089402817496397],"text":["x: 0.0<br />y:  0.00000000<br />wave: Sine Wave Base","x: 0.1<br />y:  0.09983342<br />wave: Sine Wave Base","x: 0.2<br />y:  0.19866933<br />wave: Sine Wave Base","x: 0.3<br />y:  0.29552021<br />wave: Sine Wave Base","x: 0.4<br />y:  0.38941834<br />wave: Sine Wave Base","x: 0.5<br />y:  0.47942554<br />wave: Sine Wave Base","x: 0.6<br />y:  0.56464247<br />wave: Sine Wave Base","x: 0.7<br />y:  0.64421769<br />wave: Sine Wave Base","x: 0.8<br />y:  0.71735609<br />wave: Sine Wave Base","x: 0.9<br />y:  0.78332691<br />wave: Sine Wave Base","x: 1.0<br />y:  0.84147098<br />wave: Sine Wave Base","x: 1.1<br />y:  0.89120736<br />wave: Sine Wave Base","x: 1.2<br />y:  0.93203909<br />wave: Sine Wave Base","x: 1.3<br />y:  0.96355819<br />wave: Sine Wave Base","x: 1.4<br />y:  0.98544973<br />wave: Sine Wave Base","x: 1.5<br />y:  0.99749499<br />wave: Sine Wave Base","x: 1.6<br />y:  0.99957360<br />wave: Sine Wave Base","x: 1.7<br />y:  0.99166481<br />wave: Sine Wave Base","x: 1.8<br />y:  0.97384763<br />wave: Sine Wave Base","x: 1.9<br />y:  0.94630009<br />wave: Sine Wave Base","x: 2.0<br />y:  0.90929743<br />wave: Sine Wave Base","x: 2.1<br />y:  0.86320937<br />wave: Sine Wave Base","x: 2.2<br />y:  0.80849640<br />wave: Sine Wave Base","x: 2.3<br />y:  0.74570521<br />wave: Sine Wave Base","x: 2.4<br />y:  0.67546318<br />wave: Sine Wave Base","x: 2.5<br />y:  0.59847214<br />wave: Sine Wave Base","x: 2.6<br />y:  0.51550137<br />wave: Sine Wave Base","x: 2.7<br />y:  0.42737988<br />wave: Sine Wave Base","x: 2.8<br />y:  0.33498815<br />wave: Sine Wave Base","x: 2.9<br />y:  0.23924933<br />wave: Sine Wave Base","x: 3.0<br />y:  0.14112001<br />wave: Sine Wave Base","x: 3.1<br />y:  0.04158066<br />wave: Sine Wave Base","x: 3.2<br />y: -0.05837414<br />wave: Sine Wave Base","x: 3.3<br />y: -0.15774569<br />wave: Sine Wave Base","x: 3.4<br />y: -0.25554110<br />wave: Sine Wave Base","x: 3.5<br />y: -0.35078323<br />wave: Sine Wave Base","x: 3.6<br />y: -0.44252044<br />wave: Sine Wave Base","x: 3.7<br />y: -0.52983614<br />wave: Sine Wave Base","x: 3.8<br />y: -0.61185789<br />wave: Sine Wave Base","x: 3.9<br />y: -0.68776616<br />wave: Sine Wave Base","x: 4.0<br />y: -0.75680250<br />wave: Sine Wave Base","x: 4.1<br />y: -0.81827711<br />wave: Sine Wave Base","x: 4.2<br />y: -0.87157577<br />wave: Sine Wave Base","x: 4.3<br />y: -0.91616594<br />wave: Sine Wave Base","x: 4.4<br />y: -0.95160207<br />wave: Sine Wave Base","x: 4.5<br />y: -0.97753012<br />wave: Sine Wave Base","x: 4.6<br />y: -0.99369100<br />wave: Sine Wave Base","x: 4.7<br />y: -0.99992326<br />wave: Sine Wave Base","x: 4.8<br />y: -0.99616461<br />wave: Sine Wave Base","x: 4.9<br />y: -0.98245261<br />wave: Sine Wave Base","x: 5.0<br />y: -0.95892427<br />wave: Sine Wave Base","x: 5.1<br />y: -0.92581468<br />wave: Sine Wave Base","x: 5.2<br />y: -0.88345466<br />wave: Sine Wave Base","x: 5.3<br />y: -0.83226744<br />wave: Sine Wave Base","x: 5.4<br />y: -0.77276449<br />wave: Sine Wave Base","x: 5.5<br />y: -0.70554033<br />wave: Sine Wave Base","x: 5.6<br />y: -0.63126664<br />wave: Sine Wave Base","x: 5.7<br />y: -0.55068554<br />wave: Sine Wave Base","x: 5.8<br />y: -0.46460218<br />wave: Sine Wave Base","x: 5.9<br />y: -0.37387666<br />wave: Sine Wave Base","x: 6.0<br />y: -0.27941550<br />wave: Sine Wave Base","x: 6.1<br />y: -0.18216250<br />wave: Sine Wave Base","x: 6.2<br />y: -0.08308940<br />wave: Sine Wave Base"],"type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(255,0,0,1)","dash":"solid"},"hoveron":"points","name":"Sine Wave Base","legendgroup":"Sine Wave Base","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0,0.10000000000000001,0.20000000000000001,0.30000000000000004,0.40000000000000002,0.5,0.60000000000000009,0.70000000000000007,0.80000000000000004,0.90000000000000002,1,1.1000000000000001,1.2000000000000002,1.3,1.4000000000000001,1.5,1.6000000000000001,1.7000000000000002,1.8,1.9000000000000001,2,2.1000000000000001,2.2000000000000002,2.3000000000000003,2.4000000000000004,2.5,2.6000000000000001,2.7000000000000002,2.8000000000000003,2.9000000000000004,3,3.1000000000000001,3.2000000000000002,3.3000000000000003,3.4000000000000004,3.5,3.6000000000000001,3.7000000000000002,3.8000000000000003,3.9000000000000004,4,4.1000000000000005,4.2000000000000002,4.2999999999999998,4.4000000000000004,4.5,4.6000000000000005,4.7000000000000002,4.8000000000000007,4.9000000000000004,5,5.1000000000000005,5.2000000000000002,5.3000000000000007,5.4000000000000004,5.5,5.6000000000000005,5.7000000000000002,5.8000000000000007,5.9000000000000004,6,6.1000000000000005,6.2000000000000002],"y":[0.90929742682568171,0.86320936664887371,0.80849640381959009,0.74570521217672026,0.67546318055115095,0.59847214410395655,0.51550137182146416,0.42737988023382978,0.33498815015590511,0.23924932921398243,0.14112000805986721,0.041580662433290491,-0.058374143427580086,-0.15774569414324821,-0.25554110202683167,-0.35078322768961984,-0.44252044329485246,-0.5298361409084934,-0.61185789094271892,-0.6877661591839741,-0.7568024953079282,-0.81827711106441026,-0.87157577241358819,-0.91616593674945523,-0.95160207388951601,-0.97753011766509701,-0.99369100363346441,-0.99992325756410083,-0.99616460883584057,-0.98245261262433248,-0.95892427466313845,-0.92581468232773245,-0.88345465572015314,-0.83226744222390081,-0.77276448755598715,-0.70554032557039192,-0.63126663787232162,-0.55068554259763758,-0.46460217941375659,-0.37387666483023602,-0.27941549819892586,-0.18216250427209502,-0.083089402817496397,0.016813900484349713,0.11654920485049364,0.21511998808781552,0.31154136351337869,0.4048499206165983,0.49411335113860894,0.57843976438820011,0.65698659871878906,0.72896904012587649,0.79366786384915311,0.85043662062856484,0.89870809581162692,0.9379999767747389,0.96791967203148654,0.98816823387700037,0.99854334537460498,0.99894134183977201,0.98935824662338179,0.96988981084508585,0.94073055667977312],"text":["x: 0.0<br />y:  0.90929743<br />wave: Sine Wave Shifted","x: 0.1<br />y:  0.86320937<br />wave: Sine Wave Shifted","x: 0.2<br />y:  0.80849640<br />wave: Sine Wave Shifted","x: 0.3<br />y:  0.74570521<br />wave: Sine Wave Shifted","x: 0.4<br />y:  0.67546318<br />wave: Sine Wave Shifted","x: 0.5<br />y:  0.59847214<br />wave: Sine Wave Shifted","x: 0.6<br />y:  0.51550137<br />wave: Sine Wave Shifted","x: 0.7<br />y:  0.42737988<br />wave: Sine Wave Shifted","x: 0.8<br />y:  0.33498815<br />wave: Sine Wave Shifted","x: 0.9<br />y:  0.23924933<br />wave: Sine Wave Shifted","x: 1.0<br />y:  0.14112001<br />wave: Sine Wave Shifted","x: 1.1<br />y:  0.04158066<br />wave: Sine Wave Shifted","x: 1.2<br />y: -0.05837414<br />wave: Sine Wave Shifted","x: 1.3<br />y: -0.15774569<br />wave: Sine Wave Shifted","x: 1.4<br />y: -0.25554110<br />wave: Sine Wave Shifted","x: 1.5<br />y: -0.35078323<br />wave: Sine Wave Shifted","x: 1.6<br />y: -0.44252044<br />wave: Sine Wave Shifted","x: 1.7<br />y: -0.52983614<br />wave: Sine Wave Shifted","x: 1.8<br />y: -0.61185789<br />wave: Sine Wave Shifted","x: 1.9<br />y: -0.68776616<br />wave: Sine Wave Shifted","x: 2.0<br />y: -0.75680250<br />wave: Sine Wave Shifted","x: 2.1<br />y: -0.81827711<br />wave: Sine Wave Shifted","x: 2.2<br />y: -0.87157577<br />wave: Sine Wave Shifted","x: 2.3<br />y: -0.91616594<br />wave: Sine Wave Shifted","x: 2.4<br />y: -0.95160207<br />wave: Sine Wave Shifted","x: 2.5<br />y: -0.97753012<br />wave: Sine Wave Shifted","x: 2.6<br />y: -0.99369100<br />wave: Sine Wave Shifted","x: 2.7<br />y: -0.99992326<br />wave: Sine Wave Shifted","x: 2.8<br />y: -0.99616461<br />wave: Sine Wave Shifted","x: 2.9<br />y: -0.98245261<br />wave: Sine Wave Shifted","x: 3.0<br />y: -0.95892427<br />wave: Sine Wave Shifted","x: 3.1<br />y: -0.92581468<br />wave: Sine Wave Shifted","x: 3.2<br />y: -0.88345466<br />wave: Sine Wave Shifted","x: 3.3<br />y: -0.83226744<br />wave: Sine Wave Shifted","x: 3.4<br />y: -0.77276449<br />wave: Sine Wave Shifted","x: 3.5<br />y: -0.70554033<br />wave: Sine Wave Shifted","x: 3.6<br />y: -0.63126664<br />wave: Sine Wave Shifted","x: 3.7<br />y: -0.55068554<br />wave: Sine Wave Shifted","x: 3.8<br />y: -0.46460218<br />wave: Sine Wave Shifted","x: 3.9<br />y: -0.37387666<br />wave: Sine Wave Shifted","x: 4.0<br />y: -0.27941550<br />wave: Sine Wave Shifted","x: 4.1<br />y: -0.18216250<br />wave: Sine Wave Shifted","x: 4.2<br />y: -0.08308940<br />wave: Sine Wave Shifted","x: 4.3<br />y:  0.01681390<br />wave: Sine Wave Shifted","x: 4.4<br />y:  0.11654920<br />wave: Sine Wave Shifted","x: 4.5<br />y:  0.21511999<br />wave: Sine Wave Shifted","x: 4.6<br />y:  0.31154136<br />wave: Sine Wave Shifted","x: 4.7<br />y:  0.40484992<br />wave: Sine Wave Shifted","x: 4.8<br />y:  0.49411335<br />wave: Sine Wave Shifted","x: 4.9<br />y:  0.57843976<br />wave: Sine Wave Shifted","x: 5.0<br />y:  0.65698660<br />wave: Sine Wave Shifted","x: 5.1<br />y:  0.72896904<br />wave: Sine Wave Shifted","x: 5.2<br />y:  0.79366786<br />wave: Sine Wave Shifted","x: 5.3<br />y:  0.85043662<br />wave: Sine Wave Shifted","x: 5.4<br />y:  0.89870810<br />wave: Sine Wave Shifted","x: 5.5<br />y:  0.93799998<br />wave: Sine Wave Shifted","x: 5.6<br />y:  0.96791967<br />wave: Sine Wave Shifted","x: 5.7<br />y:  0.98816823<br />wave: Sine Wave Shifted","x: 5.8<br />y:  0.99854335<br />wave: Sine Wave Shifted","x: 5.9<br />y:  0.99894134<br />wave: Sine Wave Shifted","x: 6.0<br />y:  0.98935825<br />wave: Sine Wave Shifted","x: 6.1<br />y:  0.96988981<br />wave: Sine Wave Shifted","x: 6.2<br />y:  0.94073056<br />wave: Sine Wave Shifted"],"type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(255,255,0,1)","dash":"solid"},"hoveron":"points","name":"Sine Wave Shifted","legendgroup":"Sine Wave Shifted","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0,0.10000000000000001,0.20000000000000001,0.30000000000000004,0.40000000000000002,0.5,0.60000000000000009,0.70000000000000007,0.80000000000000004,0.90000000000000002,1,1.1000000000000001,1.2000000000000002,1.3,1.4000000000000001,1.5,1.6000000000000001,1.7000000000000002,1.8,1.9000000000000001,2,2.1000000000000001,2.2000000000000002,2.3000000000000003,2.4000000000000004,2.5,2.6000000000000001,2.7000000000000002,2.8000000000000003,2.9000000000000004,3,3.1000000000000001,3.2000000000000002,3.3000000000000003,3.4000000000000004,3.5,3.6000000000000001,3.7000000000000002,3.8000000000000003,3.9000000000000004,4,4.1000000000000005,4.2000000000000002,4.2999999999999998,4.4000000000000004,4.5,4.6000000000000005,4.7000000000000002,4.8000000000000007,4.9000000000000004,5,5.1000000000000005,5.2000000000000002,5.3000000000000007,5.4000000000000004,5.5,5.6000000000000005,5.7000000000000002,5.8000000000000007,5.9000000000000004,6,6.1000000000000005,6.2000000000000002],"y":[1,0.99500416527802582,0.98006657784124163,0.95533648912560598,0.9210609940028851,0.87758256189037276,0.82533561490967822,0.76484218728448838,0.69670670934716539,0.62160996827066439,0.54030230586813977,0.45359612142557731,0.3623577544766734,0.26749882862458735,0.16996714290024081,0.070737201667702906,-0.029199522301288815,-0.12884449429552486,-0.22720209469308711,-0.32328956686350357,-0.41614683654714241,-0.50484610459985757,-0.58850111725534582,-0.66627602127982444,-0.73739371554124578,-0.8011436155469337,-0.85688875336894732,-0.90407214201706121,-0.94222234066865829,-0.97095816514959066,-0.98999249660044542,-0.99913515027327948,-0.99829477579475312,-0.98747976990886488,-0.96679819257946087,-0.93645668729079634,-0.89675841633414699,-0.84810003171040804,-0.7909677119144165,-0.72593230420013988,-0.65364362086361194,-0.57482394653326851,-0.49026082134069943,-0.40079917207997545,-0.30733286997841935,-0.2107957994307797,-0.11215252693505398,-0.01238866346289056,0.087498983439447273,0.18651236942257576,0.28366218546322625,0.37797774271298107,0.46851667130037711,0.55437433617916154,0.63469287594263468,0.70866977429125999,0.77556587851025016,0.83471278483915978,0.88551951694131936,0.92747843074403591,0.96017028665036597,0.98326843844258471,0.9965420970232175],"text":["x: 0.0<br />y:  1.00000000<br />wave: Cosine Wave","x: 0.1<br />y:  0.99500417<br />wave: Cosine Wave","x: 0.2<br />y:  0.98006658<br />wave: Cosine Wave","x: 0.3<br />y:  0.95533649<br />wave: Cosine Wave","x: 0.4<br />y:  0.92106099<br />wave: Cosine Wave","x: 0.5<br />y:  0.87758256<br />wave: Cosine Wave","x: 0.6<br />y:  0.82533561<br />wave: Cosine Wave","x: 0.7<br />y:  0.76484219<br />wave: Cosine Wave","x: 0.8<br />y:  0.69670671<br />wave: Cosine Wave","x: 0.9<br />y:  0.62160997<br />wave: Cosine Wave","x: 1.0<br />y:  0.54030231<br />wave: Cosine Wave","x: 1.1<br />y:  0.45359612<br />wave: Cosine Wave","x: 1.2<br />y:  0.36235775<br />wave: Cosine Wave","x: 1.3<br />y:  0.26749883<br />wave: Cosine Wave","x: 1.4<br />y:  0.16996714<br />wave: Cosine Wave","x: 1.5<br />y:  0.07073720<br />wave: Cosine Wave","x: 1.6<br />y: -0.02919952<br />wave: Cosine Wave","x: 1.7<br />y: -0.12884449<br />wave: Cosine Wave","x: 1.8<br />y: -0.22720209<br />wave: Cosine Wave","x: 1.9<br />y: -0.32328957<br />wave: Cosine Wave","x: 2.0<br />y: -0.41614684<br />wave: Cosine Wave","x: 2.1<br />y: -0.50484610<br />wave: Cosine Wave","x: 2.2<br />y: -0.58850112<br />wave: Cosine Wave","x: 2.3<br />y: -0.66627602<br />wave: Cosine Wave","x: 2.4<br />y: -0.73739372<br />wave: Cosine Wave","x: 2.5<br />y: -0.80114362<br />wave: Cosine Wave","x: 2.6<br />y: -0.85688875<br />wave: Cosine Wave","x: 2.7<br />y: -0.90407214<br />wave: Cosine Wave","x: 2.8<br />y: -0.94222234<br />wave: Cosine Wave","x: 2.9<br />y: -0.97095817<br />wave: Cosine Wave","x: 3.0<br />y: -0.98999250<br />wave: Cosine Wave","x: 3.1<br />y: -0.99913515<br />wave: Cosine Wave","x: 3.2<br />y: -0.99829478<br />wave: Cosine Wave","x: 3.3<br />y: -0.98747977<br />wave: Cosine Wave","x: 3.4<br />y: -0.96679819<br />wave: Cosine Wave","x: 3.5<br />y: -0.93645669<br />wave: Cosine Wave","x: 3.6<br />y: -0.89675842<br />wave: Cosine Wave","x: 3.7<br />y: -0.84810003<br />wave: Cosine Wave","x: 3.8<br />y: -0.79096771<br />wave: Cosine Wave","x: 3.9<br />y: -0.72593230<br />wave: Cosine Wave","x: 4.0<br />y: -0.65364362<br />wave: Cosine Wave","x: 4.1<br />y: -0.57482395<br />wave: Cosine Wave","x: 4.2<br />y: -0.49026082<br />wave: Cosine Wave","x: 4.3<br />y: -0.40079917<br />wave: Cosine Wave","x: 4.4<br />y: -0.30733287<br />wave: Cosine Wave","x: 4.5<br />y: -0.21079580<br />wave: Cosine Wave","x: 4.6<br />y: -0.11215253<br />wave: Cosine Wave","x: 4.7<br />y: -0.01238866<br />wave: Cosine Wave","x: 4.8<br />y:  0.08749898<br />wave: Cosine Wave","x: 4.9<br />y:  0.18651237<br />wave: Cosine Wave","x: 5.0<br />y:  0.28366219<br />wave: Cosine Wave","x: 5.1<br />y:  0.37797774<br />wave: Cosine Wave","x: 5.2<br />y:  0.46851667<br />wave: Cosine Wave","x: 5.3<br />y:  0.55437434<br />wave: Cosine Wave","x: 5.4<br />y:  0.63469288<br />wave: Cosine Wave","x: 5.5<br />y:  0.70866977<br />wave: Cosine Wave","x: 5.6<br />y:  0.77556588<br />wave: Cosine Wave","x: 5.7<br />y:  0.83471278<br />wave: Cosine Wave","x: 5.8<br />y:  0.88551952<br />wave: Cosine Wave","x: 5.9<br />y:  0.92747843<br />wave: Cosine Wave","x: 6.0<br />y:  0.96017029<br />wave: Cosine Wave","x: 6.1<br />y:  0.98326844<br />wave: Cosine Wave","x: 6.2<br />y:  0.99654210<br />wave: Cosine Wave"],"type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(0,255,255,1)","dash":"solid"},"hoveron":"points","name":"Cosine Wave","legendgroup":"Cosine Wave","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0],"y":[0],"text":"x: 0.0<br />y:  0.00000000<br />label:  0","frame":"0","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true},{"x":[0,0.10000000000000001,0.20000000000000001,0.30000000000000004,0.40000000000000002,0.5,0.60000000000000009,0.70000000000000007,0.80000000000000004,0.90000000000000002,1,1.1000000000000001,1.2000000000000002,1.3,1.4000000000000001,1.5,1.6000000000000001,1.7000000000000002,1.8,1.9000000000000001,2,2.1000000000000001,2.2000000000000002,2.3000000000000003,2.4000000000000004,2.5,2.6000000000000001,2.7000000000000002,2.8000000000000003,2.9000000000000004,3,3.1000000000000001,3.2000000000000002,3.3000000000000003,3.4000000000000004,3.5,3.6000000000000001,3.7000000000000002,3.8000000000000003,3.9000000000000004,4,4.1000000000000005,4.2000000000000002,4.2999999999999998,4.4000000000000004,4.5,4.6000000000000005,4.7000000000000002,4.8000000000000007,4.9000000000000004,5,5.1000000000000005,5.2000000000000002,5.3000000000000007,5.4000000000000004,5.5,5.6000000000000005,5.7000000000000002,5.8000000000000007,5.9000000000000004,6,6.1000000000000005,6.2000000000000002],"y":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"text":["x: 0.0<br />shift: 0","x: 0.1<br />shift: 0","x: 0.2<br />shift: 0","x: 0.3<br />shift: 0","x: 0.4<br />shift: 0","x: 0.5<br />shift: 0","x: 0.6<br />shift: 0","x: 0.7<br />shift: 0","x: 0.8<br />shift: 0","x: 0.9<br />shift: 0","x: 1.0<br />shift: 0","x: 1.1<br />shift: 0","x: 1.2<br />shift: 0","x: 1.3<br />shift: 0","x: 1.4<br />shift: 0","x: 1.5<br />shift: 0","x: 1.6<br />shift: 0","x: 1.7<br />shift: 0","x: 1.8<br />shift: 0","x: 1.9<br />shift: 0","x: 2.0<br />shift: 0","x: 2.1<br />shift: 0","x: 2.2<br />shift: 0","x: 2.3<br />shift: 0","x: 2.4<br />shift: 0","x: 2.5<br />shift: 0","x: 2.6<br />shift: 0","x: 2.7<br />shift: 0","x: 2.8<br />shift: 0","x: 2.9<br />shift: 0","x: 3.0<br />shift: 0","x: 3.1<br />shift: 0","x: 3.2<br />shift: 0","x: 3.3<br />shift: 0","x: 3.4<br />shift: 0","x: 3.5<br />shift: 0","x: 3.6<br />shift: 0","x: 3.7<br />shift: 0","x: 3.8<br />shift: 0","x: 3.9<br />shift: 0","x: 4.0<br />shift: 0","x: 4.1<br />shift: 0","x: 4.2<br />shift: 0","x: 4.3<br />shift: 0","x: 4.4<br />shift: 0","x: 4.5<br />shift: 0","x: 4.6<br />shift: 0","x: 4.7<br />shift: 0","x: 4.8<br />shift: 0","x: 4.9<br />shift: 0","x: 5.0<br />shift: 0","x: 5.1<br />shift: 0","x: 5.2<br />shift: 0","x: 5.3<br />shift: 0","x: 5.4<br />shift: 0","x: 5.5<br />shift: 0","x: 5.6<br />shift: 0","x: 5.7<br />shift: 0","x: 5.8<br />shift: 0","x: 5.9<br />shift: 0","x: 6.0<br />shift: 0","x: 6.1<br />shift: 0","x: 6.2<br />shift: 0"],"type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(160,32,240,1)","dash":"dash"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.228310502283104,"r":7.3059360730593621,"b":40.182648401826491,"l":48.949771689497723},"plot_bgcolor":"#e5ecf6","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.31000000000000005,6.5099999999999998],"tickmode":"array","ticktext":["0","2","4","6"],"tickvals":[0,2,4,6],"categoryorder":"array","categoryarray":["0","2","4","6"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"x","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1.099919420442306,1.0999961628782051],"tickmode":"array","ticktext":["-1.0","-0.5","0.0","0.5","1.0"],"tickvals":[-1,-0.5,0,0.5,0.99999999999999978],"categoryorder":"array","categoryarray":["-1.0","-0.5","0.0","0.5","1.0"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"y","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Wave Type","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative","title":"Wave Graph - Superimposed","sliders":[{"currentvalue":{"prefix":"~label: ","xanchor":"right","font":{"size":16,"color":"rgba(204,204,204,1)"}},"steps":[{"method":"animate","args":[["0"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"0","value":"0"},{"method":"animate","args":[["1"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"1","value":"1"},{"method":"animate","args":[["2"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"2","value":"2"},{"method":"animate","args":[["3"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"3","value":"3"},{"method":"animate","args":[["4"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"4","value":"4"},{"method":"animate","args":[["5"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"5","value":"5"},{"method":"animate","args":[["6"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"6","value":"6"},{"method":"animate","args":[["7"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"7","value":"7"},{"method":"animate","args":[["8"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"8","value":"8"},{"method":"animate","args":[["9"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"9","value":"9"},{"method":"animate","args":[["10"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"10","value":"10"},{"method":"animate","args":[["11"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"11","value":"11"},{"method":"animate","args":[["12"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"12","value":"12"},{"method":"animate","args":[["13"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"13","value":"13"},{"method":"animate","args":[["14"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"14","value":"14"},{"method":"animate","args":[["15"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"15","value":"15"},{"method":"animate","args":[["16"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"16","value":"16"},{"method":"animate","args":[["17"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"17","value":"17"},{"method":"animate","args":[["18"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"18","value":"18"},{"method":"animate","args":[["19"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"19","value":"19"},{"method":"animate","args":[["20"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"20","value":"20"},{"method":"animate","args":[["21"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"21","value":"21"},{"method":"animate","args":[["22"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"22","value":"22"},{"method":"animate","args":[["23"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"23","value":"23"},{"method":"animate","args":[["24"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"24","value":"24"},{"method":"animate","args":[["25"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"25","value":"25"},{"method":"animate","args":[["26"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"26","value":"26"},{"method":"animate","args":[["27"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"27","value":"27"},{"method":"animate","args":[["28"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"28","value":"28"},{"method":"animate","args":[["29"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"29","value":"29"},{"method":"animate","args":[["30"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"30","value":"30"},{"method":"animate","args":[["31"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"31","value":"31"},{"method":"animate","args":[["32"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"32","value":"32"},{"method":"animate","args":[["33"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"33","value":"33"},{"method":"animate","args":[["34"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"34","value":"34"},{"method":"animate","args":[["35"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"35","value":"35"},{"method":"animate","args":[["36"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"36","value":"36"},{"method":"animate","args":[["37"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"37","value":"37"},{"method":"animate","args":[["38"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"38","value":"38"},{"method":"animate","args":[["39"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"39","value":"39"},{"method":"animate","args":[["40"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"40","value":"40"},{"method":"animate","args":[["41"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"41","value":"41"},{"method":"animate","args":[["42"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"42","value":"42"},{"method":"animate","args":[["43"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"43","value":"43"},{"method":"animate","args":[["44"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"44","value":"44"},{"method":"animate","args":[["45"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"45","value":"45"},{"method":"animate","args":[["46"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"46","value":"46"},{"method":"animate","args":[["47"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"47","value":"47"},{"method":"animate","args":[["48"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"48","value":"48"},{"method":"animate","args":[["49"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"49","value":"49"},{"method":"animate","args":[["50"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"50","value":"50"},{"method":"animate","args":[["51"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"51","value":"51"},{"method":"animate","args":[["52"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"52","value":"52"},{"method":"animate","args":[["53"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"53","value":"53"},{"method":"animate","args":[["54"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"54","value":"54"},{"method":"animate","args":[["55"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"55","value":"55"},{"method":"animate","args":[["56"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"56","value":"56"},{"method":"animate","args":[["57"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"57","value":"57"},{"method":"animate","args":[["58"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"58","value":"58"},{"method":"animate","args":[["59"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"59","value":"59"},{"method":"animate","args":[["60"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"60","value":"60"},{"method":"animate","args":[["61"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"61","value":"61"},{"method":"animate","args":[["62"],{"transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false},"mode":"immediate"}],"label":"62","value":"62"}],"visible":true,"pad":{"t":40}}],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":500,"easing":"linear"},"frame":{"duration":500,"redraw":false}}]}]}]},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"5546e6f4855":{"x":{},"y":{},"colour":{},"type":"scatter"},"55443cb186b":{"x":{},"y":{},"colour":{}},"5544861b24":{"x":{},"y":{},"colour":{}},"554117f47c3":{"x":{},"y":{},"frame":{}},"5547eb85512":{"x":{},"y":{}}},"cur_data":"5546e6f4855","visdat":{"5546e6f4855":["function (y) ","x"],"55443cb186b":["function (y) ","x"],"5544861b24":["function (y) ","x"],"554117f47c3":["function (y) ","x"],"5547eb85512":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"0","data":[{"x":[0],"y":[0],"text":"x: 0.0<br />y:  0.00000000<br />label:  0","frame":"0","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"1","data":[{"x":[0.10000000000000001],"y":[0.099833416646828155],"text":"x: 0.1<br />y:  0.09983342<br />label:  1","frame":"1","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"2","data":[{"x":[0.20000000000000001],"y":[0.19866933079506122],"text":"x: 0.2<br />y:  0.19866933<br />label:  2","frame":"2","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"3","data":[{"x":[0.30000000000000004],"y":[0.2955202066613396],"text":"x: 0.3<br />y:  0.29552021<br />label:  3","frame":"3","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"4","data":[{"x":[0.40000000000000002],"y":[0.38941834230865052],"text":"x: 0.4<br />y:  0.38941834<br />label:  4","frame":"4","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"5","data":[{"x":[0.5],"y":[0.47942553860420301],"text":"x: 0.5<br />y:  0.47942554<br />label:  5","frame":"5","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"6","data":[{"x":[0.60000000000000009],"y":[0.56464247339503548],"text":"x: 0.6<br />y:  0.56464247<br />label:  6","frame":"6","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"7","data":[{"x":[0.70000000000000007],"y":[0.64421768723769113],"text":"x: 0.7<br />y:  0.64421769<br />label:  7","frame":"7","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"8","data":[{"x":[0.80000000000000004],"y":[0.71735609089952279],"text":"x: 0.8<br />y:  0.71735609<br />label:  8","frame":"8","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"9","data":[{"x":[0.90000000000000002],"y":[0.78332690962748341],"text":"x: 0.9<br />y:  0.78332691<br />label:  9","frame":"9","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"10","data":[{"x":[1],"y":[0.8414709848078965],"text":"x: 1.0<br />y:  0.84147098<br />label: 10","frame":"10","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"11","data":[{"x":[1.1000000000000001],"y":[0.89120736006143542],"text":"x: 1.1<br />y:  0.89120736<br />label: 11","frame":"11","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"12","data":[{"x":[1.2000000000000002],"y":[0.9320390859672264],"text":"x: 1.2<br />y:  0.93203909<br />label: 12","frame":"12","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"13","data":[{"x":[1.3],"y":[0.96355818541719296],"text":"x: 1.3<br />y:  0.96355819<br />label: 13","frame":"13","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"14","data":[{"x":[1.4000000000000001],"y":[0.98544972998846025],"text":"x: 1.4<br />y:  0.98544973<br />label: 14","frame":"14","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"15","data":[{"x":[1.5],"y":[0.99749498660405445],"text":"x: 1.5<br />y:  0.99749499<br />label: 15","frame":"15","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"16","data":[{"x":[1.6000000000000001],"y":[0.99957360304150511],"text":"x: 1.6<br />y:  0.99957360<br />label: 16","frame":"16","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"17","data":[{"x":[1.7000000000000002],"y":[0.99166481045246857],"text":"x: 1.7<br />y:  0.99166481<br />label: 17","frame":"17","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"18","data":[{"x":[1.8],"y":[0.97384763087819515],"text":"x: 1.8<br />y:  0.97384763<br />label: 18","frame":"18","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"19","data":[{"x":[1.9000000000000001],"y":[0.94630008768741447],"text":"x: 1.9<br />y:  0.94630009<br />label: 19","frame":"19","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"20","data":[{"x":[2],"y":[0.90929742682568171],"text":"x: 2.0<br />y:  0.90929743<br />label: 20","frame":"20","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"21","data":[{"x":[2.1000000000000001],"y":[0.86320936664887371],"text":"x: 2.1<br />y:  0.86320937<br />label: 21","frame":"21","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"22","data":[{"x":[2.2000000000000002],"y":[0.80849640381959009],"text":"x: 2.2<br />y:  0.80849640<br />label: 22","frame":"22","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"23","data":[{"x":[2.3000000000000003],"y":[0.74570521217672003],"text":"x: 2.3<br />y:  0.74570521<br />label: 23","frame":"23","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"24","data":[{"x":[2.4000000000000004],"y":[0.67546318055115062],"text":"x: 2.4<br />y:  0.67546318<br />label: 24","frame":"24","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"25","data":[{"x":[2.5],"y":[0.59847214410395655],"text":"x: 2.5<br />y:  0.59847214<br />label: 25","frame":"25","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"26","data":[{"x":[2.6000000000000001],"y":[0.51550137182146416],"text":"x: 2.6<br />y:  0.51550137<br />label: 26","frame":"26","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"27","data":[{"x":[2.7000000000000002],"y":[0.42737988023382978],"text":"x: 2.7<br />y:  0.42737988<br />label: 27","frame":"27","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"28","data":[{"x":[2.8000000000000003],"y":[0.33498815015590466],"text":"x: 2.8<br />y:  0.33498815<br />label: 28","frame":"28","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"29","data":[{"x":[2.9000000000000004],"y":[0.23924932921398198],"text":"x: 2.9<br />y:  0.23924933<br />label: 29","frame":"29","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"30","data":[{"x":[3],"y":[0.14112000805986721],"text":"x: 3.0<br />y:  0.14112001<br />label: 30","frame":"30","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"31","data":[{"x":[3.1000000000000001],"y":[0.041580662433290491],"text":"x: 3.1<br />y:  0.04158066<br />label: 31","frame":"31","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"32","data":[{"x":[3.2000000000000002],"y":[-0.058374143427580086],"text":"x: 3.2<br />y: -0.05837414<br />label: 32","frame":"32","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"33","data":[{"x":[3.3000000000000003],"y":[-0.15774569414324865],"text":"x: 3.3<br />y: -0.15774569<br />label: 33","frame":"33","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"34","data":[{"x":[3.4000000000000004],"y":[-0.25554110202683167],"text":"x: 3.4<br />y: -0.25554110<br />label: 34","frame":"34","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"35","data":[{"x":[3.5],"y":[-0.35078322768961984],"text":"x: 3.5<br />y: -0.35078323<br />label: 35","frame":"35","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"36","data":[{"x":[3.6000000000000001],"y":[-0.44252044329485246],"text":"x: 3.6<br />y: -0.44252044<br />label: 36","frame":"36","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"37","data":[{"x":[3.7000000000000002],"y":[-0.5298361409084934],"text":"x: 3.7<br />y: -0.52983614<br />label: 37","frame":"37","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"38","data":[{"x":[3.8000000000000003],"y":[-0.61185789094271925],"text":"x: 3.8<br />y: -0.61185789<br />label: 38","frame":"38","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"39","data":[{"x":[3.9000000000000004],"y":[-0.6877661591839741],"text":"x: 3.9<br />y: -0.68776616<br />label: 39","frame":"39","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"40","data":[{"x":[4],"y":[-0.7568024953079282],"text":"x: 4.0<br />y: -0.75680250<br />label: 40","frame":"40","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"41","data":[{"x":[4.1000000000000005],"y":[-0.81827711106441081],"text":"x: 4.1<br />y: -0.81827711<br />label: 41","frame":"41","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"42","data":[{"x":[4.2000000000000002],"y":[-0.87157577241358819],"text":"x: 4.2<br />y: -0.87157577<br />label: 42","frame":"42","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"43","data":[{"x":[4.2999999999999998],"y":[-0.9161659367494549],"text":"x: 4.3<br />y: -0.91616594<br />label: 43","frame":"43","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"44","data":[{"x":[4.4000000000000004],"y":[-0.95160207388951601],"text":"x: 4.4<br />y: -0.95160207<br />label: 44","frame":"44","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"45","data":[{"x":[4.5],"y":[-0.97753011766509701],"text":"x: 4.5<br />y: -0.97753012<br />label: 45","frame":"45","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"46","data":[{"x":[4.6000000000000005],"y":[-0.99369100363346452],"text":"x: 4.6<br />y: -0.99369100<br />label: 46","frame":"46","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"47","data":[{"x":[4.7000000000000002],"y":[-0.99992325756410083],"text":"x: 4.7<br />y: -0.99992326<br />label: 47","frame":"47","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"48","data":[{"x":[4.8000000000000007],"y":[-0.99616460883584057],"text":"x: 4.8<br />y: -0.99616461<br />label: 48","frame":"48","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"49","data":[{"x":[4.9000000000000004],"y":[-0.98245261262433248],"text":"x: 4.9<br />y: -0.98245261<br />label: 49","frame":"49","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"50","data":[{"x":[5],"y":[-0.95892427466313845],"text":"x: 5.0<br />y: -0.95892427<br />label: 50","frame":"50","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"51","data":[{"x":[5.1000000000000005],"y":[-0.92581468232773212],"text":"x: 5.1<br />y: -0.92581468<br />label: 51","frame":"51","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"52","data":[{"x":[5.2000000000000002],"y":[-0.88345465572015314],"text":"x: 5.2<br />y: -0.88345466<br />label: 52","frame":"52","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"53","data":[{"x":[5.3000000000000007],"y":[-0.83226744222390081],"text":"x: 5.3<br />y: -0.83226744<br />label: 53","frame":"53","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"54","data":[{"x":[5.4000000000000004],"y":[-0.77276448755598715],"text":"x: 5.4<br />y: -0.77276449<br />label: 54","frame":"54","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"55","data":[{"x":[5.5],"y":[-0.70554032557039192],"text":"x: 5.5<br />y: -0.70554033<br />label: 55","frame":"55","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"56","data":[{"x":[5.6000000000000005],"y":[-0.63126663787232085],"text":"x: 5.6<br />y: -0.63126664<br />label: 56","frame":"56","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"57","data":[{"x":[5.7000000000000002],"y":[-0.55068554259763758],"text":"x: 5.7<br />y: -0.55068554<br />label: 57","frame":"57","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"58","data":[{"x":[5.8000000000000007],"y":[-0.46460217941375659],"text":"x: 5.8<br />y: -0.46460218<br />label: 58","frame":"58","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"59","data":[{"x":[5.9000000000000004],"y":[-0.37387666483023602],"text":"x: 5.9<br />y: -0.37387666<br />label: 59","frame":"59","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"60","data":[{"x":[6],"y":[-0.27941549819892586],"text":"x: 6.0<br />y: -0.27941550<br />label: 60","frame":"60","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"61","data":[{"x":[6.1000000000000005],"y":[-0.18216250427209502],"text":"x: 6.1<br />y: -0.18216250<br />label: 61","frame":"61","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]},{"name":"62","data":[{"x":[6.2000000000000002],"y":[-0.083089402817496397],"text":"x: 6.2<br />y: -0.08308940<br />label: 62","frame":"62","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","visible":true}],"traces":[3]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/lukealbracht\.github\.io\/Data-proj-portfolio\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
