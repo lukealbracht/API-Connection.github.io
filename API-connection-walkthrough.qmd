@@ -365,7 +365,7 @@ The last part of this walk through I will cover pagination and how to modify you
 
 This is extremely important concept if you are new to working with APIs. Pagination as it refers to APIs is the practice of breaking up the data into smaller chunks. From what I gathered, the main reason this is done is to improve performance. In my case rather than pull all 600+ activities they are broken up into chunks of 200. We can see from the Strava API that the activities endpoint has query parameters page & per_page listed above. This might be simple for most to understand, but I made the mistake of thinking of "page" as "number of pages" when above it is defined as "page number" in the sense that the pages are indexed. Each page is given an "id" 1,2,3,4..... each page can at max hold 200 items or activities. The defaults are set to pull 30 items from page 1. How did we find the 200 max? - Answer in the docs:
 
-![Pagination](_site/images/Strava Pagination.png)
+![Pagination](_site/images/Strava%20Pagination.png)
 
 ### Rate Limits
 
@@ -373,7 +373,7 @@ In my case rate limits are not as big a concern as I will be the sole user of my
 
 This is another example of where we are really dependent upon "good/detailed" API documentation. The distinction between "overall rate limit" & "read rate limit" is obscure. I did not find it explicitly detailed in the documentation and I believe other users found the same issues. After this question was posted in the Strava forums the answer was published by Strava. They detail that the type of activity is a consideration in the rate limits:
 
-![](_site/images/Rate Limits Explainations-01.png){width="671"}
+![](_site/images/Rate%20Limits%20Explainations-01.png){width="671"}
 
 I know that my goal will only employ the use of the HTTP GET requests so this answers my question and I will use `X-RateLimit-Limit` & `X-RateLimit-Usage` for my project. Given the above considerations of pagination and rate limits, we know at max we can get 200 activities per page but right now the request is only pulling one page at a time. I have \~600 activities I would like to gather data on. So we have two tasks:
 
@@ -427,4 +427,4 @@ resps <- req_perform_iterative(
 resps
 ```
 
-![Iterated Responses](_site/images/Iterated Responses.png)
+![Iterated Responses](_site/images/Iterated%20Responses.png)
