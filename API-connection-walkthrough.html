@@ -124,7 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/DataExploreR2.png" alt="" class="navbar-logo">
+    <img src="./DataExploreR2.png" alt="" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -439,8 +439,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the graph ----</span></span>
 <span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="fu">render_graph</span>(Diagram)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-dba57970e97f8e9b6866" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-dba57970e97f8e9b6866">{"x":{"diagram":"graph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Application\n(Client)\n(My Strava App)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#007AC1\", fontcolor = \"White\", height = \"5\", width = \"2\"] \n  \"2\" [label = \"User\n(My Strava\nProfile)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#FDBB30\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"3\" [label = \"Authorization\nServer\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#C71585\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"4\" [label = \"Resource\n Server\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"Orangered\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n\"1\"--\"2\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"1.)Authorization is requested from the\n app to the user/profile/data owner.\", dir = \"forward\", headport = \"n\", tailport = \"n\"] \n\"2\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"2.)User grants authorization to the app.\", dir = \"forward\", dir = \"forward\", dir = \"forward\"] \n\"1\"--\"3\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"3.)App sends the authorization grant\nto the authorization server\", dir = \"forward\", headport = \"n\", headport = \"n\"] \n\"3\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"4.)Access token is granted to the app.\", dir = \"forward\", dir = \"forward\", tailport = \"w\"] \n\"1\"--\"4\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"5.)Access token is sent from app\nvia HTTP|GET request.\", dir = \"forward\", headport = \"w\", headport = \"w\"] \n\"4\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"6.)Access to resource data\nis granted to the application.\", dir = \"forward\", headport = \"s\", tailport = \"s\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-75341e001a742446f2d0" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-75341e001a742446f2d0">{"x":{"diagram":"graph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Application\n(Client)\n(My Strava App)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#007AC1\", fontcolor = \"White\", height = \"5\", width = \"2\"] \n  \"2\" [label = \"User\n(My Strava\nProfile)\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#FDBB30\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"3\" [label = \"Authorization\nServer\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"#C71585\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n  \"4\" [label = \"Resource\n Server\", shape = \"rectangle\", color = \"steelblue\", fillcolor = \"Orangered\", fontcolor = \"White\", height = \"2\", width = \"1\"] \n\"1\"--\"2\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"1.)Authorization is requested from the\n app to the user/profile/data owner.\", dir = \"forward\", headport = \"n\", tailport = \"n\"] \n\"2\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"2.)User grants authorization to the app.\", dir = \"forward\", dir = \"forward\", dir = \"forward\"] \n\"1\"--\"3\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"3.)App sends the authorization grant\nto the authorization server\", dir = \"forward\", headport = \"n\", headport = \"n\"] \n\"3\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"4.)Access token is granted to the app.\", dir = \"forward\", dir = \"forward\", tailport = \"w\"] \n\"1\"--\"4\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"5.)Access token is sent from app\nvia HTTP|GET request.\", dir = \"forward\", headport = \"w\", headport = \"w\"] \n\"4\"--\"1\" [penwidth = \"5\", color = \"Orange\", arrowsize = \"0.5\", fontsize = \"12\", label = \"6.)Access to resource data\nis granted to the application.\", dir = \"forward\", headport = \"s\", tailport = \"s\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div></li>
 </ol>
@@ -644,6 +644,12 @@ Name: Luke Albracht</code></pre>
 <span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="fu">env_obj_classes</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(Name,<span class="st">"strava|req|resp"</span>)) <span class="sc">%&gt;%</span> <span class="fu">tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Objects.png" class="img-fluid figure-img"></p>
+<figcaption>Environment Window</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="part-ii-request-modification" class="level2">
@@ -658,13 +664,13 @@ Name: Luke Albracht</code></pre>
 <section id="pagination" class="level3">
 <h3 class="anchored" data-anchor-id="pagination">Pagination</h3>
 <p>This is extremely important concept if you are new to working with APIs. Pagination as it refers to APIs is the practice of breaking up the data into smaller chunks. From what I gathered, the main reason this is done is to improve performance. In my case rather than pull all 600+ activities they are broken up into chunks of 200. We can see from the Strava API that the activities endpoint has query parameters page &amp; per_page listed above. This might be simple for most to understand, but I made the mistake of thinking of “page” as “number of pages” when above it is defined as “page number” in the sense that the pages are indexed. Each page is given an “id” 1,2,3,4….. each page can at max hold 200 items or activities. The defaults are set to pull 30 items from page 1. How did we find the 200 max? - Answer in the docs:</p>
-<p><img src="images/Strava Pagination.png" class="img-fluid"></p>
+<p><img src="_site/images/Strava Pagination.png" class="img-fluid"></p>
 </section>
 <section id="rate-limits" class="level3">
 <h3 class="anchored" data-anchor-id="rate-limits">Rate Limits</h3>
 <p>In my case rate limits are not as big a concern as I will be the sole user of my application. It is highly unlikely I will exceed either of the limits. We can find the two types of “rate limits” that Strava maintains. The value of <code>X-RateLimit-Limit</code> is “200,2000” this is read as: “200 requests every 15 minutes, 2000 daily requests” we are dependent upon Strava’s documentation for this information which is referred to as the “overall rate limit”. Additionally, The value of <code>X-ReadRateLimit-Limit</code> is “100,1000” this is read as: “100 requests every 15 minutes, 1000 daily requests” this is referred to as “read rate limit”. Which one do we use?</p>
 <p>This is another example of where we are really dependent upon “good/detailed” API documentation. The distinction between “overall rate limit” &amp; “read rate limit” is obscure. I did not find it explicitly detailed in the documentation and I believe other users found the same issues. After this question was posted in the Strava forums the answer was published by Strava. They detail that the type of activity is a consideration in the rate limits:</p>
-<p><img src="images/Rate Limits Explainations-01.png" class="img-fluid" width="671"></p>
+<p><img src="_site/images/Rate Limits Explainations-01.png" class="img-fluid" width="671"></p>
 <p>I know that my goal will only employ the use of the HTTP GET requests so this answers my question and I will use <code>X-RateLimit-Limit</code> &amp; <code>X-RateLimit-Usage</code> for my project. Given the above considerations of pagination and rate limits, we know at max we can get 200 activities per page but right now the request is only pulling one page at a time. I have ~600 activities I would like to gather data on. So we have two tasks:</p>
 <ol type="1">
 <li><p>Using Iteration to get around the Pagination problem:</p>
@@ -714,6 +720,12 @@ Name: Luke Albracht</code></pre>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Displaying the outcome:</span></span>
 <span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>resps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Iterated Responses.png" class="img-fluid figure-img"></p>
+<figcaption>Iterated Responses</figcaption>
+</figure>
 </div>
 
 
