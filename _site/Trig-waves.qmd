@@ -1,0 +1,201 @@
+---
+title-block-style: default
+title-block-banner: true
+title: "Plotting sine waves in ggplot & plotly"
+description: "Testing out ggplot and plotly with trig waves"
+author:
+  - name: Luke Albracht
+date: today
+date-meta: short
+format: 
+  html:
+    toc: true
+    toc_float: true
+
+categories:
+  - ggplot
+  - plotly
+  - Data vizualization
+---
+
+## Libraries
+
+```{r}
+#I will be using the following libraries:
+if (!require(pacman)) install.packages("pacman")
+p_load(tidyverse,hrbrthemes,plotly,ggplot2,igraph)
+```
+
+### Overview
+
+Below I am using ggplot & plotly to create sine wave plots in R.
+
+## Sine Wave Equation
+
+$$
+y=A*sin(Bx+C)+D
+$$
+
+#### Definitions:
+
+-   A - is the amplitude, which represents the maximum displacement from the equilibrium position.
+
+-   B - is the frequency or angular frequency, which determines how many cycles occur in a given interval of X.
+
+-   C - is the phase shift, which represents a horizontal shift along the X-axis.
+
+-   D - is the vertical shift, which represents a vertical translation of the curve.
+
+### ggplot
+
+In order to graph this with ggplot or later with plotly we will have to have a data frame. In order to get that I am going to make a number of assignments so that I can input variables into my sign equation.
+
+```{r}
+#Asign our variables:
+A <- 1 #amplitude
+B <- 4 #frequency or period
+C <- 0 #phase shift or horizontial shift
+D <- 0 #vertical shift
+start_point <- 1 #where your curve starts
+
+#frequency from above will be assigned again here using the seq() function in base R to create a sequence of numbers from 1 to B - in order to create a "smooth" looking line we will "by" equal to ".01" which means that we will have a point on the x axis from 1 to B every .01 increment: 
+period <- seq(from = start_point,
+             to = B*pi, 
+             by = .1)
+#plug the period variable into our dataframe and set Y equal to our equation above. - in order to get the graph to move with these variables all of them must be present in the y column of our dataframe:
+df <- data.frame(x = period,
+               y = A*sin(period+C)+D,
+               label = 1:length(period),
+               shift = D)
+
+#Creating a phase shifted wave to superimpose on the first wave:
+df2 <- data.frame(x = period,
+               y = A*sin(period+(C+2))+D,
+               label = 1:length(period),
+               shift = D)
+
+#data frame of sinusoidal wave:
+df %>% arrange(x) %>% head()
+df2 %>% arrange(x) %>% head()
+```
+
+### Debugging
+
+When I was making assignments to the equation and data frame above I noticed I was receiving errors when the starting point and endpoints are changed. The direction of increment is determined based on the sign of **`to - from`**. If **`to`** is greater than **`from`**, the increment will be positive, causing theta values to increase from **`from`** to **`to`**. If **`to`** is less than **`from`**, the increment will be negative, causing theta values to decrease from **`from`** to **`to`**. So we need to create a function that dynamically adjusts our increment variable depending on the sign of `B` and our `startpoint`.
+
+```{r}
+#Asign our variables:
+A <- 1 #amplitude
+B <- 2 #frequency or period
+C <- 0 #phase shift or horizontial shift
+D <- 0 #vertical shift (displacment)
+start_point <- 0 #where your curve starts
+
+#Adjustment function for "by" variable:
+generate_increment <- function(x, start_point, B) {
+  if (B - start_point < 0) {
+    return(-1 * x)
+  } else if (B - start_point > 0) {
+    return(1 * x)
+  } else {
+    return(0)  # In case B - start_point equals 0
+  }
+}
+
+#Setting increment to ".1" & setting shift placement based on startpoint:
+adj_by <- generate_increment(.1,start_point,B)
+adj_shift <- generate_increment(1,start_point,B)
+
+
+#frequency from above will be assigned again here using the seq() function in base R to create a sequence of numbers from 1 to B - in order to create a "smooth" looking line we will "by" equal to ".01" which means that we will have a point on the x axis from 1 to B every .01 increment: 
+period <- seq(from = start_point,
+             to = B*pi, 
+             by = adj_by)
+#plug the period variable into our dataframe and set Y equal to our equation above. - in order to get the graph to move with these variables all of them must be present in the y column of our dataframe:
+df <- data.frame(x = period,
+               y = A*sin(period+C)+D,
+               label = 0:(length(period)-1)*adj_shift,
+               shift = D,
+               wave = "Sine Wave Base")
+
+#Creating a phase shifted wave to superimpose on the first wave:
+df2 <- data.frame(x = period,
+               y = A*sin(period+(C+2))+D,
+               label = 0:(length(period)-1)*adj_shift,
+               shift = D,
+               wave = "Sine Wave Shifted")
+
+#Creating a cosine wave to superimpose on the other waves:
+df3 <- data.frame(x = period,
+               y = A*cos(period+C)+D,
+               label = 0:(length(period)-1)*adj_shift,
+               shift = D,
+               wave = "Cosine Wave")
+```
+
+#### Sine Wave Graph \| ggplot
+
+```{r}
+#Showing the  basic ggplots of each graph:
+#Pipe the data frame:
+Wave1 <- df %>%
+  ggplot(aes(x=x,y=y))+
+  geom_line(color= "cyan", size = 1)+
+  labs(title = "Sine Wave")+
+  theme(plot.title = element_text(face = "bold",size = 15))
+
+Wave1
+
+Wave2 <- df2 %>%
+  ggplot(aes(x=x,y=y))+
+  geom_line(color= "cyan", size = 1)+
+  labs(title = "Sine Wave")+
+  theme(plot.title = element_text(face = "bold",size = 15))
+
+Wave2
+```
+
+#### Sine Wave Graph \| plotly
+
+```{r}
+#Pull all data together to get labels:
+all_data <- rbind(df,df2,df3)
+
+#Summarize and list wave labels to character vector for legend below:
+wave_type <- all_data %>%
+  group_by(wave) %>%
+  summarise() %>%
+  list() %>%
+  unlist()
+
+wave_type <- wave_type %>% as.character()
+
+
+p <- ggplot() +
+  geom_line(data = df,
+            aes(x = x, y = y, color = wave),  # Map color aesthetic and provide legend label
+            size = 1,
+            linetype = "solid") +
+  geom_line(data = df2,
+            aes(x = x, y = y, color = wave),  # Map color aesthetic and provide legend label
+            size = 1,
+            linetype = "solid") +
+   geom_line(data = df3,
+            aes(x = x, y = y, color = wave),  # Map color aesthetic and provide legend label
+            size = 1,
+            linetype = "solid") +
+  geom_point(data = df,
+             aes(x = x, y = y, frame = label)) +
+  geom_line(data = df,
+            aes(x = x, y = shift),
+            color = "purple",
+            size = 1,
+            linetype = "dashed") +
+  labs(color = "Wave Type") +  # Provide a common legend title
+  scale_color_manual(values = c("cyan", "red","yellow"), labels = wave_type) # Define color palette and legend labels
+
+#Add plotly interaction and legend:
+p <- ggplotly(p) %>%
+  plotly::layout(title = 'Wave Graph - Superimposed',plot_bgcolor = "#e5ecf6")
+p
+```

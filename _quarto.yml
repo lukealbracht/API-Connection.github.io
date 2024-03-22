@@ -10,7 +10,8 @@ website:
     style: "docked"
     search: true
     toc: true
-    logo: "images/DataExploreR2.png"
+    logo: DataExploreR2.png
+  
     left:
       - href: About.qmd
         text: About Me

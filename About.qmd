@@ -1,9 +1,9 @@
 ---
 title: "About Me"
 subtitle: "Luke Albracht"
+image: About.png
 about:
   template: jolla
-  image: "images/About.png"
   links:
     - icon: linkedin
       text: linkedin
