@@ -5,6 +5,7 @@ project:
 #Adding the title of the site, search bar, and "back to top" button when scrolling:
 website:
   page-navigation: true
+  back-to-top-navigation: true
   navbar:
     background: primary
     style: "docked"
@@ -41,6 +42,7 @@ format:
     smooth-scroll: true
     fontcolor: white
     toc: true
+    code-fold: true
     toc-location: left
     toc-title: Summary
     toc-depth: 4
