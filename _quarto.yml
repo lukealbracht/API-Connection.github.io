@@ -1,21 +1,20 @@
 #This specifies the project is to be a website.
 project:
   type: website
-  title: Lucas Albracht Analytics 
 
 #Adding the title of the site, search bar, and "back to top" button when scrolling:
 website:
-  title: "Analytics Portfolio"
   page-navigation: true
   navbar:
     background: primary
     style: "docked"
     search: true
     toc: true
+    logo: "images/DataExploreR2.png"
     left:
       - href: About.qmd
         text: About Me
-      - text: Projects
+      - text: Analytics Portfolio
         menu:
         - text: API Walkthrough 
           href: API-connection-walkthrough.qmd

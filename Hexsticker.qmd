@@ -1,0 +1,38 @@
+---
+title: "Creating A Hexsticker"
+editor: visual
+execute: 
+  eval: false
+---
+
+### Libraries
+
+```{r}
+library(hexSticker) #hex sticker generator
+library(magick) #Advanced image proceessing
+library(sysfonts) #font selection
+library(tidyverse)
+```
+
+### Custom Hex-sticker Creation
+
+```{r, message=FALSE, warning=FALSE}
+p <- ggplot(mpg,aes(cty,hwy))
+p <- p + theme_void() + geom_hex(colour = "#0C2D48") + theme(legend.position = "none")
+
+sticker(
+  p,
+  package = "Data ExploreR",
+  p_y = 1.2,
+  p_size = 15,
+  url = "https://github.com/lukealbracht",
+  u_size = 4,
+  s_width = 6,
+  s_height = 6,
+  s_x = 1,
+  s_y = .75,
+  h_fill = "#2b2b2b",
+  h_color = "#0C2D48",
+  white_around_sticker = T) %>%
+  print()
+```

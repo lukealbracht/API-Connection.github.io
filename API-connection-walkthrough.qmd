@@ -1,6 +1,7 @@
 ---
 title-block-style: default
-title-block-banner: true
+title-block-banner: false
+logo: "images/Strava Main Logo.jpeg"
 title: "Strava API Connnection Walkthrough"
 description: "This document walks through how to connect to Strava's API."
 author:
@@ -12,7 +13,6 @@ format:
     toc: true
     toc_float: true
 
-image: images/Strava Main Logo.jpeg
 categories:
   - APIS
   - Data Wrangling

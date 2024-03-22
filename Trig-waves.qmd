@@ -1,6 +1,6 @@
 ---
 title-block-style: default
-title-block-banner: true
+title-block-banner: false
 title: "Plotting sine waves in ggplot & plotly"
 description: "Testing out ggplot and plotly with trig waves"
 author:
