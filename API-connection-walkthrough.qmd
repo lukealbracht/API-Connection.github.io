@@ -13,7 +13,8 @@ format:
   html:
     toc: true
     toc_float: true
-    code-fold: true
+    code-fold: show
+    code-tools: true
 
 categories:
   - APIS
